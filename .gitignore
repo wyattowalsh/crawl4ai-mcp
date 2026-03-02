@@ -1,5 +1,8 @@
 # Project-specific
-.cursor/mcp.json
+.cursor/
+.vscode/
+/components/
+assets/context/
 
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 # Created by https://www.toptal.com/developers/gitignore/api/cmake,git,jupyternotebooks,linux,macos,node,pydev,python,visualstudio,visualstudiocode,windows,zsh
@@ -410,12 +413,7 @@ poetry.toml
 pyrightconfig.json
 
 ### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+# .vscode/ is blanket-ignored at the top of this file
 
 # Local History for Visual Studio Code
 .history/

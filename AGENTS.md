@@ -20,9 +20,12 @@ AI agent instructions for this project.
 | `crawl4ai_mcp/__init__.py` | Package version only |
 | `pyproject.toml` | Project config, dependencies, tool config |
 | `tests/conftest.py` | Test fixtures (mock crawler, client) |
-| `tests/test_server.py` | 31+ tests -- all in-memory, no browser |
+| `tests/test_server.py` | 55+ tests -- all in-memory, no browser |
+| `tests/manual/` | Manual live test scripts (require browser) |
 | `crawl4ai_mcp/py.typed` | PEP 561 typed package marker |
-| `.github/workflows/ci.yml` | GitHub Actions CI (test + lint + typecheck) |
+| `.github/workflows/ci.yml` | GitHub Actions CI (test + lint + typecheck + Codecov) |
+| `.github/dependabot.yml` | Dependabot for pip + GitHub Actions |
+| `.github/assets/img/` | Logo, icon, favicon images |
 | `Dockerfile` | Container build for HTTP transport deployment |
 | `.pre-commit-config.yaml` | Pre-commit hooks (ruff + pre-commit-hooks) |
 
@@ -115,7 +118,8 @@ FastMCP("crawl4ai")
 ## Testing
 
 Tests use `fastmcp.Client(mcp)` for in-memory testing -- no browser or network required.
-The conftest patches `AsyncWebCrawler` with `AsyncMock`. All 31+ tests should pass in <30s.
+The conftest patches `AsyncWebCrawler` with `AsyncMock`. All 55+ tests should pass in <60s.
+Coverage threshold: 90% (currently ~98%). Markers: `smoke`, `integration`.
 
 ## What NOT to Do
 

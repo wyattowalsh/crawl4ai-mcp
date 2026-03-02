@@ -11,30 +11,42 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from fastmcp.exceptions import ToolError
 
-from crawl4ai_mcp.server import MAX_RESPONSE_CHARS, _extract_markdown, _truncate, _validate_url
+from crawl4ai_mcp.server import (
+    MAX_RESPONSE_CHARS,
+    _extract_markdown,
+    _get_crawler,
+    _select_content,
+    _truncate,
+    _validate_url,
+)
 
 # =========================================================================
 # 1. Discovery tests
 # =========================================================================
 
 
-EXPECTED_TOOLS = sorted([
-    "crawl_url",
-    "crawl_many",
-    "deep_crawl",
-    "extract_data",
-    "take_screenshot",
-    "get_links",
-    "get_page_info",
-    "execute_js",
-])
+EXPECTED_TOOLS = sorted(
+    [
+        "crawl_url",
+        "crawl_many",
+        "deep_crawl",
+        "extract_data",
+        "take_screenshot",
+        "get_links",
+        "get_page_info",
+        "execute_js",
+    ]
+)
 
-EXPECTED_RESOURCES = sorted([
-    "config://server",
-    "crawl4ai://version",
-])
+EXPECTED_RESOURCES = sorted(
+    [
+        "config://server",
+        "crawl4ai://version",
+    ]
+)
 
 
+@pytest.mark.smoke
 class TestDiscovery:
     async def test_list_tools(self, client):
         c, _ = client
@@ -101,9 +113,7 @@ class TestExtractData:
                 {"name": "title", "selector": "h2", "type": "text"},
             ],
         }
-        result = await c.call_tool(
-            "extract_data", {"url": "https://example.com", "schema": schema}
-        )
+        result = await c.call_tool("extract_data", {"url": "https://example.com", "schema": schema})
         text = result.content[0].text if hasattr(result, "content") else str(result)
         assert "Item" in text
 
@@ -188,9 +198,7 @@ class TestErrorHandling:
             "fields": [{"name": "title", "selector": "h2", "type": "text"}],
         }
         with pytest.raises(ToolError, match="No data extracted"):
-            await c.call_tool(
-                "extract_data", {"url": "https://example.com", "schema": schema}
-            )
+            await c.call_tool("extract_data", {"url": "https://example.com", "schema": schema})
 
     async def test_take_screenshot_no_data(self, client, mock_crawl_result):
         c, mock_crawler = client
@@ -291,7 +299,9 @@ class TestOutputFormats:
     async def test_crawl_url_html_format(self, client, mock_crawl_result):
         c, mock_crawler = client
         mock_crawler.arun = AsyncMock(return_value=mock_crawl_result)
-        result = await c.call_tool("crawl_url", {"url": "https://example.com", "output_format": "html"})
+        result = await c.call_tool(
+            "crawl_url", {"url": "https://example.com", "output_format": "html"}
+        )
         text = result.content[0].text if hasattr(result, "content") else str(result)
         # mock_crawl_result.html = "<html><body><h1>Example</h1></body></html>"
         assert "<" in text and ">" in text  # HTML tags present
@@ -299,14 +309,18 @@ class TestOutputFormats:
     async def test_crawl_url_cleaned_html_format(self, client, mock_crawl_result):
         c, mock_crawler = client
         mock_crawler.arun = AsyncMock(return_value=mock_crawl_result)
-        result = await c.call_tool("crawl_url", {"url": "https://example.com", "output_format": "cleaned_html"})
+        result = await c.call_tool(
+            "crawl_url", {"url": "https://example.com", "output_format": "cleaned_html"}
+        )
         text = result.content[0].text if hasattr(result, "content") else str(result)
         assert len(text) > 0
 
     async def test_crawl_url_text_format(self, client, mock_crawl_result):
         c, mock_crawler = client
         mock_crawler.arun = AsyncMock(return_value=mock_crawl_result)
-        result = await c.call_tool("crawl_url", {"url": "https://example.com", "output_format": "text"})
+        result = await c.call_tool(
+            "crawl_url", {"url": "https://example.com", "output_format": "text"}
+        )
         text = result.content[0].text if hasattr(result, "content") else str(result)
         assert len(text) > 0
 
@@ -441,3 +455,173 @@ class TestExtractMarkdownFallbacks:
         md.raw_markdown = "raw content"
         result.markdown = md
         assert _extract_markdown(result) == "raw content"
+
+
+# =========================================================================
+# 13. SSRF validation
+# =========================================================================
+
+
+class TestSSRFProtection:
+    def test_private_ip_loopback(self):
+        with pytest.raises(ToolError, match="Private/loopback"):
+            _validate_url("http://127.0.0.1/foo")
+
+    def test_private_ip_10_range(self):
+        with pytest.raises(ToolError, match="Private/loopback"):
+            _validate_url("http://10.0.0.1/admin")
+
+    def test_private_ip_192_range(self):
+        with pytest.raises(ToolError, match="Private/loopback"):
+            _validate_url("http://192.168.1.1/config")
+
+
+# =========================================================================
+# 14. Helper edge cases
+# =========================================================================
+
+
+class TestHelperEdgeCases:
+    def test_get_crawler_no_context(self):
+        with pytest.raises(ToolError, match="Crawler not available"):
+            _get_crawler(None)
+
+    def test_extract_markdown_unknown_object_fallback(self):
+        """Non-str markdown with no fit/raw attrs falls back to cleaned_html."""
+        result = MagicMock()
+        md = MagicMock(spec=[])  # spec=[] removes all attrs
+        result.markdown = md
+        result.cleaned_html = "<p>fallback</p>"
+        result.html = "<html>raw</html>"
+        assert _extract_markdown(result) == "<p>fallback</p>"
+
+    def test_select_content_invalid_format(self):
+        result = MagicMock()
+        with pytest.raises(ToolError, match="Unknown output_format"):
+            _select_content(result, "xml")
+
+
+# =========================================================================
+# 15. Failed crawl paths (per-tool)
+# =========================================================================
+
+
+class TestFailedCrawlPaths:
+    async def test_extract_data_failed_crawl(self, client, mock_failed_result):
+        c, mock_crawler = client
+        mock_crawler.arun = AsyncMock(return_value=mock_failed_result)
+        schema = {
+            "name": "Items",
+            "baseSelector": ".item",
+            "fields": [{"name": "title", "selector": "h2", "type": "text"}],
+        }
+        with pytest.raises(ToolError, match="Extraction failed"):
+            await c.call_tool("extract_data", {"url": "https://example.com", "schema": schema})
+
+    async def test_screenshot_failed_crawl(self, client, mock_failed_result):
+        c, mock_crawler = client
+        mock_crawler.arun = AsyncMock(return_value=mock_failed_result)
+        with pytest.raises(ToolError, match="Screenshot failed"):
+            await c.call_tool("take_screenshot", {"url": "https://example.com"})
+
+    async def test_get_links_failed_crawl(self, client, mock_failed_result):
+        c, mock_crawler = client
+        mock_crawler.arun = AsyncMock(return_value=mock_failed_result)
+        with pytest.raises(ToolError, match="Link extraction failed"):
+            await c.call_tool("get_links", {"url": "https://example.com"})
+
+    async def test_get_page_info_failed_crawl(self, client, mock_failed_result):
+        c, mock_crawler = client
+        mock_crawler.arun = AsyncMock(return_value=mock_failed_result)
+        with pytest.raises(ToolError, match="Page inspection failed"):
+            await c.call_tool("get_page_info", {"url": "https://example.com"})
+
+    async def test_deep_crawl_mixed_results(self, client, mock_crawl_result, mock_failed_result):
+        c, mock_crawler = client
+        mock_crawler.arun = AsyncMock(return_value=[mock_crawl_result, mock_failed_result])
+        result = await c.call_tool("deep_crawl", {"url": "https://example.com"})
+        text = result.content[0].text if hasattr(result, "content") else str(result)
+        data = json.loads(text)
+        assert data["pages_crawled"] == 2
+        has_error = any("error" in p for p in data["results"])
+        assert has_error
+
+
+# =========================================================================
+# 16. Prompt tests
+# =========================================================================
+
+
+class TestPrompts:
+    async def test_summarize_page_prompt(self, client):
+        c, _ = client
+        prompt = await c.get_prompt("summarize_page", {"url": "https://example.com"})
+        assert len(prompt.messages) == 1
+        assert "crawl_url" in prompt.messages[0].content.text
+        assert "https://example.com" in prompt.messages[0].content.text
+
+    async def test_build_extraction_schema_prompt(self, client):
+        c, _ = client
+        prompt = await c.get_prompt(
+            "build_extraction_schema",
+            {"url": "https://example.com", "data_type": "products"},
+        )
+        assert len(prompt.messages) == 1
+        assert "extract_data" in prompt.messages[0].content.text
+        assert "products" in prompt.messages[0].content.text
+
+    async def test_compare_pages_prompt(self, client):
+        c, _ = client
+        prompt = await c.get_prompt(
+            "compare_pages",
+            {"url1": "https://a.com", "url2": "https://b.com"},
+        )
+        assert len(prompt.messages) == 1
+        text = prompt.messages[0].content.text
+        assert "https://a.com" in text
+        assert "https://b.com" in text
+
+
+# =========================================================================
+# 17. Entrypoint tests
+# =========================================================================
+
+
+class TestMain:
+    def test_main_stdio(self):
+        from crawl4ai_mcp.server import main
+        from crawl4ai_mcp.server import mcp as _mcp
+
+        with (
+            patch("sys.argv", ["crawl4ai-mcp"]),
+            patch.object(_mcp, "run") as mock_run,
+        ):
+            main()
+            mock_run.assert_called_once_with()
+
+    def test_main_http(self):
+        from crawl4ai_mcp.server import main
+        from crawl4ai_mcp.server import mcp as _mcp
+
+        with (
+            patch(
+                "sys.argv",
+                ["crawl4ai-mcp", "--transport", "http", "--host", "0.0.0.0", "--port", "9000"],
+            ),
+            patch.object(_mcp, "run") as mock_run,
+        ):
+            main()
+            mock_run.assert_called_once_with(transport="http", host="0.0.0.0", port=9000)
+
+
+# =========================================================================
+# 18. Smoke tests
+# =========================================================================
+
+
+class TestSmoke:
+    @pytest.mark.smoke
+    def test_server_import(self):
+        from crawl4ai_mcp.server import mcp as _mcp
+
+        assert _mcp.name == "crawl4ai"

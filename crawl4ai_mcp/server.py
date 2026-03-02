@@ -108,9 +108,7 @@ def _validate_url(url: str) -> None:
     """Raise ``ToolError`` if *url* is not a valid HTTP(S) URL."""
     parsed = urlparse(url)
     if parsed.scheme not in ("http", "https") or not parsed.netloc:
-        raise ToolError(
-            f"Invalid URL: {url!r}. Only http and https URLs are supported."
-        )
+        raise ToolError(f"Invalid URL: {url!r}. Only http and https URLs are supported.")
     # T09 — SSRF protection: block private/loopback IPs
     hostname = parsed.hostname or ""
     try:
@@ -124,9 +122,7 @@ def _validate_url(url: str) -> None:
 def _get_crawler(ctx: Context | None) -> AsyncWebCrawler:
     """Extract the shared crawler from the lifespan context."""
     if ctx is None:
-        raise ToolError(
-            "Crawler not available — server not fully initialized."
-        )
+        raise ToolError("Crawler not available — server not fully initialized.")
     return ctx.lifespan_context["crawler"]
 
 
@@ -153,7 +149,7 @@ _FORMAT_DISPATCH = {
     "html": lambda r: r.html or "",
     "cleaned_html": lambda r: r.cleaned_html or r.html or "",
     "text": lambda r: re.sub(
-        r'[#*_`]|!?\[([^\]]*)\]\([^)]*\)', r'\1', _extract_markdown(r)
+        r"[#*_`]|!?\[([^\]]*)\]\([^)]*\)", r"\1", _extract_markdown(r)
     ).strip(),
 }
 
@@ -162,8 +158,7 @@ def _select_content(result: Any, output_format: str) -> str:
     """Pick the content field matching *output_format*."""
     if output_format not in VALID_FORMATS:
         raise ToolError(
-            f"Unknown output_format {output_format!r}. "
-            f"Valid options: {sorted(VALID_FORMATS)}"
+            f"Unknown output_format {output_format!r}. Valid options: {sorted(VALID_FORMATS)}"
         )
     return _FORMAT_DISPATCH.get(output_format, _extract_markdown)(result)
 
@@ -205,7 +200,9 @@ async def crawl_url(
     url: Annotated[str, Field(description="The URL to crawl. Must be http or https.")],
     output_format: Annotated[
         Literal["markdown", "html", "text", "cleaned_html"],
-        Field(description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."),
+        Field(
+            description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."
+        ),
     ] = "markdown",
     css_selector: Annotated[
         str | None,
@@ -274,7 +271,9 @@ async def crawl_many(
     ],
     output_format: Annotated[
         Literal["markdown", "html", "text", "cleaned_html"],
-        Field(description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."),
+        Field(
+            description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."
+        ),
     ] = "markdown",
     css_selector: Annotated[
         str | None,
@@ -327,17 +326,21 @@ async def crawl_many(
     for r in results:
         if r.success:
             content = _select_content(r, output_format)
-            output.append({
-                "url": r.url,
-                "success": True,
-                "content": _truncate(content, BATCH_ITEM_CHARS),
-            })
+            output.append(
+                {
+                    "url": r.url,
+                    "success": True,
+                    "content": _truncate(content, BATCH_ITEM_CHARS),
+                }
+            )
         else:
-            output.append({
-                "url": r.url,
-                "success": False,
-                "error": r.error_message,
-            })
+            output.append(
+                {
+                    "url": r.url,
+                    "success": False,
+                    "error": r.error_message,
+                }
+            )
 
     # T11 — Warn on partial failures
     failed_count = sum(1 for item in output if not item["success"])
@@ -381,7 +384,9 @@ async def deep_crawl(
     ] = False,
     output_format: Annotated[
         Literal["markdown", "html", "text", "cleaned_html"],
-        Field(description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."),
+        Field(
+            description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."
+        ),
     ] = "markdown",
     css_selector: Annotated[
         str | None,
@@ -431,17 +436,21 @@ async def deep_crawl(
     for i, r in enumerate(results):
         if r.success:
             content = _select_content(r, output_format)
-            pages.append({
-                "url": r.url,
-                "depth": getattr(r, "depth", 0),
-                "content": _truncate(content, BATCH_ITEM_CHARS),
-            })
+            pages.append(
+                {
+                    "url": r.url,
+                    "depth": getattr(r, "depth", 0),
+                    "content": _truncate(content, BATCH_ITEM_CHARS),
+                }
+            )
         else:
-            pages.append({
-                "url": r.url,
-                "depth": getattr(r, "depth", 0),
-                "error": r.error_message,
-            })
+            pages.append(
+                {
+                    "url": r.url,
+                    "depth": getattr(r, "depth", 0),
+                    "error": r.error_message,
+                }
+            )
         # T08 — Progress reporting
         try:
             await ctx.report_progress(i + 1, len(results))
@@ -586,11 +595,13 @@ async def take_screenshot(
     if not result.screenshot:
         raise ToolError(f"No screenshot data returned for {url}")
 
-    return json.dumps({
-        "url": result.url,
-        "screenshot_base64": result.screenshot,
-        "format": "png",
-    })
+    return json.dumps(
+        {
+            "url": result.url,
+            "screenshot_base64": result.screenshot,
+            "format": "png",
+        }
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -737,7 +748,9 @@ async def execute_js(
     ] = None,
     output_format: Annotated[
         Literal["markdown", "html", "text", "cleaned_html"],
-        Field(description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."),
+        Field(
+            description="Output format: 'markdown' (default), 'html', 'text', or 'cleaned_html'."
+        ),
     ] = "markdown",
     ctx: Context | None = None,
 ) -> str:
@@ -790,16 +803,18 @@ _TOOL_NAMES = [
 @mcp.resource("config://server", mime_type="application/json")
 def get_server_config() -> str:
     """Current server configuration and capabilities."""
-    return json.dumps({
-        "name": "crawl4ai",
-        "version": __version__,
-        "tools": _TOOL_NAMES,
-        "max_response_chars": MAX_RESPONSE_CHARS,
-        "browser_config": {
-            "headless": True,
-            "browser_type": "chromium",
-        },
-    })
+    return json.dumps(
+        {
+            "name": "crawl4ai",
+            "version": __version__,
+            "tools": _TOOL_NAMES,
+            "max_response_chars": MAX_RESPONSE_CHARS,
+            "browser_config": {
+                "headless": True,
+                "browser_type": "chromium",
+            },
+        }
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -818,11 +833,13 @@ def get_version_info() -> str:
     if not isinstance(c4ai_ver, str):
         c4ai_ver = getattr(c4ai_ver, "__version__", "unknown")
 
-    return json.dumps({
-        "server_version": __version__,
-        "crawl4ai_version": c4ai_ver,
-        "fastmcp_version": getattr(fastmcp, "__version__", "unknown"),
-    })
+    return json.dumps(
+        {
+            "server_version": __version__,
+            "crawl4ai_version": c4ai_ver,
+            "fastmcp_version": getattr(fastmcp, "__version__", "unknown"),
+        }
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -840,10 +857,12 @@ def summarize_page(
     Generates a prompt that instructs the LLM to use crawl_url to fetch
     the page and then summarize it with the specified focus.
     """
-    return [Message(
-        role="user",
-        content=f"Use the crawl_url tool to fetch {url}, then summarize its {focus}.",
-    )]
+    return [
+        Message(
+            role="user",
+            content=f"Use the crawl_url tool to fetch {url}, then summarize its {focus}.",
+        )
+    ]
 
 
 @mcp.prompt
@@ -856,14 +875,16 @@ def build_extraction_schema(
     Instructs the LLM to inspect the page structure and craft a schema
     for the extract_data tool to extract the specified data type.
     """
-    return [Message(
-        role="user",
-        content=(
-            f"Use get_page_info on {url} to understand the page structure, then "
-            f"craft a JSON CSS extraction schema for the extract_data tool to "
-            f"extract {data_type} from that page. Show the schema."
-        ),
-    )]
+    return [
+        Message(
+            role="user",
+            content=(
+                f"Use get_page_info on {url} to understand the page structure, then "
+                f"craft a JSON CSS extraction schema for the extract_data tool to "
+                f"extract {data_type} from that page. Show the schema."
+            ),
+        )
+    ]
 
 
 @mcp.prompt
@@ -876,13 +897,15 @@ def compare_pages(
     Instructs the LLM to fetch both pages with crawl_url and produce
     a structured comparison highlighting key differences.
     """
-    return [Message(
-        role="user",
-        content=(
-            f"Use crawl_url to fetch {url1} and {url2}, then compare their "
-            f"content and highlight the key differences."
-        ),
-    )]
+    return [
+        Message(
+            role="user",
+            content=(
+                f"Use crawl_url to fetch {url1} and {url2}, then compare their "
+                f"content and highlight the key differences."
+            ),
+        )
+    ]
 
 
 # ---------------------------------------------------------------------------

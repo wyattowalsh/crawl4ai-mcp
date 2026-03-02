@@ -2,7 +2,7 @@
 
 <div align="center">
   
-[![Crawl4AI-MCP Logo](../assets/img/logo.png)](https://github.com/wyattowalsh/crawl4ai-mcp)
+[![Crawl4AI-MCP Logo](assets/img/logo.png)](https://github.com/wyattowalsh/crawl4ai-mcp)
 
 *Empowering AI models with real-time web access and processing.*
 
