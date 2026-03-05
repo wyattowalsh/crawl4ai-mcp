@@ -31,6 +31,7 @@ This guide provides a concise overview of our contribution process. For more det
 - [Testing Guidelines](#-testing-guidelines)
 - [MCP Protocol Compliance](#-mcp-protocol-compliance)
 - [Review Process](#-review-process)
+- [Release Publishing (PyPI)](#-release-publishing-pypi)
 - [Getting Help](#-getting-help)
 
 ## 🌐 Project Overview
@@ -242,6 +243,16 @@ MCP Inspector provides:
 This significantly accelerates the development and testing cycle by providing immediate visual feedback on your changes.
 
 For more details, see the [MCP Inspector documentation](https://modelcontextprotocol.io/docs/tools/inspector).
+
+## 📦 Release Publishing (PyPI)
+
+For GitHub Actions Trusted Publishing, configure PyPI with these exact values: **owner** `wyattowalsh`, **repo** `crawl4ai-mcp`, **workflow** `release.yml`, **environment** `pypi`.
+
+If publishing fails, first verify those values match exactly in PyPI. You may also set an optional `PYPI_API_TOKEN` repository secret as a fallback for token-based publishing.
+
+```bash
+gh run rerun 22700192024 && gh run watch 22700192024 --exit-status
+```
 
 ## 🆘 Getting Help
 
