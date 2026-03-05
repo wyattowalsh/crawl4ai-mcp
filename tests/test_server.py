@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import io
 import json
+import tomllib
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -891,6 +893,22 @@ class TestPrompts:
         assert "scrape" in text
         assert "https://a.com" in text
         assert "https://b.com" in text
+
+
+class TestPyprojectScripts:
+    @staticmethod
+    def _load_scripts() -> dict[str, str]:
+        pyproject_path = Path(__file__).resolve().parents[1] / "pyproject.toml"
+        pyproject = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
+        return pyproject["project"]["scripts"]
+
+    def test_has_mcp_crawl4ai_script_entrypoint(self):
+        scripts = self._load_scripts()
+        assert scripts["mcp-crawl4ai"] == "mcp_crawl4ai.server:main"
+
+    def test_does_not_have_legacy_crawl4ai_mcp_script_key(self):
+        scripts = self._load_scripts()
+        assert "crawl4ai-mcp" not in scripts
 
 
 class TestMain:

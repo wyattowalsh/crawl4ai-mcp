@@ -1,5 +1,10 @@
 """Contract lock tests for the scrape/crawl surface."""
 
+import importlib
+import importlib.metadata
+from unittest.mock import Mock
+
+import mcp_crawl4ai
 from mcp_crawl4ai import (
     SCRAPE_CRAWL_CONTRACT_SCHEMA_VERSION,
     SCRAPE_CRAWL_ENVELOPE_FIELDS,
@@ -70,3 +75,26 @@ def test_retired_legacy_tools_absent_from_migration_map() -> None:
 
 def test_scrape_crawl_meta_typed_contract_lock() -> None:
     assert "traversal_mode" in ScrapeCrawlEnvelopeMeta.__annotations__
+
+
+def test_init_version_resolution_uses_metadata_lookup(monkeypatch) -> None:
+    lookup = Mock(return_value="9.9.9")
+    monkeypatch.setattr(importlib.metadata, "version", lookup)
+
+    reloaded = importlib.reload(mcp_crawl4ai)
+
+    assert reloaded.__version__ == "9.9.9"
+    lookup.assert_called_once_with("mcp-crawl4ai")
+
+
+def test_init_version_resolution_falls_back_when_package_missing(monkeypatch) -> None:
+    def _raise_not_found(_: str) -> str:
+        raise importlib.metadata.PackageNotFoundError
+
+    lookup = Mock(side_effect=_raise_not_found)
+    monkeypatch.setattr(importlib.metadata, "version", lookup)
+
+    reloaded = importlib.reload(mcp_crawl4ai)
+
+    assert reloaded.__version__ == "0.0.0"
+    lookup.assert_called_once_with("mcp-crawl4ai")
