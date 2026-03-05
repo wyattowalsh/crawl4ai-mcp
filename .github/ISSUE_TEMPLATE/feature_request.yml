@@ -1,5 +1,5 @@
 name: ✨ Feature Request
-description: Suggest an idea for crawl4ai-mcp
+description: Suggest an idea for mcp-crawl4ai
 title: "[FEATURE] "
 labels: ["enhancement", "triage"]
 assignees: ""
@@ -13,14 +13,14 @@ body:
 
         ![Feature Request Banner](https://img.shields.io/badge/Request%20Type-Feature-brightgreen?style=for-the-badge)
 
-        **Thank you for contributing to the improvement of Crawl4AI-MCP!** <br/>
+        **Thank you for contributing to the improvement of MCP-Crawl4AI!** <br/>
         Your ideas help make this project better for everyone.
 
         </div>
 
         ---
 
-        > **Goal:** Share your vision for a new capability or improvement in Crawl4AI-MCP.
+        > **Goal:** Share your vision for a new capability or improvement in MCP-Crawl4AI.
 
   - type: textarea
     id: description
@@ -148,6 +148,6 @@ body:
         <div align="center">
 
         ### Thank you for your feature proposal! 🙌
-        We appreciate your input in shaping the future of Crawl4AI-MCP.
+        We appreciate your input in shaping the future of MCP-Crawl4AI.
 
         </div> 

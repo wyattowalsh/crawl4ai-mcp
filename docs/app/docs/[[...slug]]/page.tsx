@@ -36,7 +36,7 @@ export default async function Page(props: {
         />
       </DocsBody>
       <div className="mt-16 border-t pt-4 text-sm text-center text-slate-500">
-        <p>Found an issue with this page? <a href="https://github.com/wyattowalsh/crawl4ai-mcp/issues/new" className="text-blue-600 hover:underline">Submit a GitHub issue</a></p>
+        <p>Found an issue with this page? <a href="https://github.com/wyattowalsh/mcp-crawl4ai/issues/new" className="text-blue-600 hover:underline">Submit a GitHub issue</a></p>
       </div>
     </DocsPage>
   );

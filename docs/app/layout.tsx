@@ -17,35 +17,35 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Crawl4AI-MCP | Advanced Web Crawling for AI',
-    template: '%s | Crawl4AI-MCP',
+    default: 'MCP-Crawl4AI | Advanced Web Crawling for AI',
+    template: '%s | MCP-Crawl4AI',
   },
   description: 'A powerful Model Context Protocol server implementation for web crawling and data extraction',
   keywords: ['web crawling', 'MCP', 'AI', 'web extraction', 'web data', 'LLM', 'Claude', 'Model Context Protocol'],
   authors: [{ name: 'Crawl4AI Team' }],
-  metadataBase: new URL('https://crawl4ai-mcp.io'),
+  metadataBase: new URL('https://mcp-crawl4ai.io'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://crawl4ai-mcp.io',
-    title: 'Crawl4AI-MCP | Advanced Web Crawling for AI',
+    url: 'https://mcp-crawl4ai.io',
+    title: 'MCP-Crawl4AI | Advanced Web Crawling for AI',
     description: 'A powerful Model Context Protocol server implementation for web crawling and data extraction',
-    siteName: 'Crawl4AI-MCP Documentation',
+    siteName: 'MCP-Crawl4AI Documentation',
     images: [
       {
-        url: 'https://crawl4ai-mcp.io/og-image.jpg',
+        url: 'https://mcp-crawl4ai.io/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Crawl4AI-MCP Logo',
+        alt: 'MCP-Crawl4AI Logo',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Crawl4AI-MCP | Advanced Web Crawling for AI',
+    title: 'MCP-Crawl4AI | Advanced Web Crawling for AI',
     description: 'A powerful Model Context Protocol server implementation for web crawling and data extraction',
     creator: '@crawl4ai',
-    images: ['https://crawl4ai-mcp.io/og-image.jpg'],
+    images: ['https://mcp-crawl4ai.io/og-image.jpg'],
   },
 };
 

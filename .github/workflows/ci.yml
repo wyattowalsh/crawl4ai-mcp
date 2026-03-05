@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: uv sync
       - name: Run tests with coverage
-        run: uv run pytest --cov=crawl4ai_mcp --cov-report=xml --cov-report=term-missing
+        run: uv run pytest --cov=mcp_crawl4ai --cov-report=xml --cov-report=term-missing
       - name: Upload coverage
         uses: codecov/codecov-action@v5
         with:
@@ -44,9 +44,9 @@ jobs:
       - name: Install dependencies
         run: uv sync
       - name: Lint with ruff
-        run: uv run ruff check crawl4ai_mcp/ tests/
+        run: uv run ruff check mcp_crawl4ai/ tests/
       - name: Check formatting
-        run: uv run ruff format --check crawl4ai_mcp/ tests/
+        run: uv run ruff format --check mcp_crawl4ai/ tests/
 
   typecheck:
     name: Type Check
@@ -62,4 +62,4 @@ jobs:
       - name: Install dependencies
         run: uv sync
       - name: Run ty
-        run: uv run ty check crawl4ai_mcp/
+        run: uv run ty check mcp_crawl4ai/

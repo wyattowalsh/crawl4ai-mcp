@@ -59,7 +59,7 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
               Feature
             </th>
             <th scope="col" className="py-3 px-4 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider bg-primary-50 dark:bg-primary-900/20 w-1/6">
-              Crawl4AI MCP
+              MCP-Crawl4AI
             </th>
             {alternativeNames.map((name) => (
               <th 

@@ -1,5 +1,5 @@
 ---
-title: "Crawl4AI MCP Server"
+title: "MCP-Crawl4AI Server"
 description: "High-performance web crawling for large language models using the Model Context Protocol"
 ---
 
@@ -7,8 +7,8 @@ import { Tabs, Tab } from 'nextra-theme-docs'
 import { Callout } from 'nextra/components'
 
 <div className="text-center mb-8">
-  <img src="/crawl4ai-mcp/img/logo.png" alt="Crawl4AI MCP Logo" className="mx-auto my-6" width="180px" />
-  <h1 className="text-4xl font-bold tracking-tight">Crawl4AI MCP</h1>
+  <img src="/mcp-crawl4ai/img/logo.png" alt="MCP-Crawl4AI Logo" className="mx-auto my-6" width="180px" />
+  <h1 className="text-4xl font-bold tracking-tight">MCP-Crawl4AI</h1>
   <p className="text-xl mt-4 text-gray-600 dark:text-gray-400">
     High-performance web crawling for large language models using the Model Context Protocol
   </p>
@@ -48,9 +48,9 @@ import { Callout } from 'nextra/components'
 
 </div>
 
-## What is Crawl4AI MCP?
+## What is MCP-Crawl4AI?
 
-Crawl4AI MCP is a **high-performance server implementation** that connects the [Model Context Protocol (MCP)](https://modelcontextprotocol.ai) with advanced web crawling capabilities. It enables large language models like Claude to interact with the live web, retrieving real-time information and structured content from websites.
+MCP-Crawl4AI is a **high-performance server implementation** that connects the [Model Context Protocol (MCP)](https://modelcontextprotocol.ai) with advanced web crawling capabilities. It enables large language models like Claude to interact with the live web, retrieving real-time information and structured content from websites.
 
 This server is designed to be:
 
@@ -63,16 +63,16 @@ This server is designed to be:
 
 ## Installation
 
-Crawl4AI MCP can be installed in multiple ways to fit your needs.
+MCP-Crawl4AI can be installed in multiple ways to fit your needs.
 
 <Tabs items={['pip', 'Modern Python (uv)', 'Docker', 'Development']}>
   <Tab>
     ```bash
     # Install package
-    pip install crawl4ai-mcp
+    pip install mcp-crawl4ai
     
     # Install browser dependencies (first time)
-    crawl4ai-mcp --setup
+    mcp-crawl4ai --setup
     ```
   </Tab>
   <Tab>
@@ -82,30 +82,30 @@ Crawl4AI MCP can be installed in multiple ways to fit your needs.
     curl -LsSf https://astral.sh/uv/install.sh | sh
     
     # Install package with UV
-    uv pip install crawl4ai-mcp
+    uv pip install mcp-crawl4ai
     
     # Install browser dependencies (first time)
-    crawl4ai-mcp --setup
+    mcp-crawl4ai --setup
     ```
   </Tab>
   <Tab>
     ```bash
     # Pull and run the Docker image
-    docker pull ghcr.io/wyattowalsh/crawl4ai-mcp:latest
+    docker pull ghcr.io/wyattowalsh/mcp-crawl4ai:latest
     
     # Run with default settings
-    docker run -p 8000:8000 ghcr.io/wyattowalsh/crawl4ai-mcp:latest
+    docker run -p 8000:8000 ghcr.io/wyattowalsh/mcp-crawl4ai:latest
     
     # Use environment variables for runtime tuning when needed
-    docker run -p 8000:8000 -e CRAWL4AI_MCP_DEFAULTS__MAX_RESPONSE_CHARS=50000 \
-      ghcr.io/wyattowalsh/crawl4ai-mcp:latest
+    docker run -p 8000:8000 -e MCP_CRAWL4AI_DEFAULTS__MAX_RESPONSE_CHARS=50000 \
+      ghcr.io/wyattowalsh/mcp-crawl4ai:latest
     ```
   </Tab>
   <Tab>
     ```bash
     # Clone the repository
-    git clone https://github.com/wyattowalsh/crawl4ai-mcp.git
-    cd crawl4ai-mcp
+    git clone https://github.com/wyattowalsh/mcp-crawl4ai.git
+    cd mcp-crawl4ai
     
     # Create a virtual environment (optional but recommended)
     python -m venv venv
@@ -121,26 +121,26 @@ Crawl4AI MCP can be installed in multiple ways to fit your needs.
 </Tabs>
 
 <Callout type="info">
-  Install `crawl4ai-mcp` directly (no transport extras required), then run `crawl4ai-mcp --setup` once to install browser dependencies.
+  Install `mcp-crawl4ai` directly (no transport extras required), then run `mcp-crawl4ai --setup` once to install browser dependencies.
 </Callout>
 
 ## Quick Start
 
-Once installed, you can start the server with the `crawl4ai-mcp` command:
+Once installed, you can start the server with the `mcp-crawl4ai` command:
 
 ```bash
 # Option 1: Default - Start with STDIO transport
 # (Ideal for direct client integration like Claude Desktop)
-crawl4ai-mcp
+mcp-crawl4ai
 
 # Option 2: Start with HTTP transport on localhost port 8000
-crawl4ai-mcp --transport http --host 127.0.0.1 --port 8000
+mcp-crawl4ai --transport http --host 127.0.0.1 --port 8000
 
 # Option 3: Install browser dependencies (first time)
-crawl4ai-mcp --setup
+mcp-crawl4ai --setup
 
 # Option 4: See all available options and help
-crawl4ai-mcp --help
+mcp-crawl4ai --help
 ```
 
 ### Connecting an MCP Client
@@ -149,10 +149,10 @@ crawl4ai-mcp --help
   <Tab>
     1. Open Claude Desktop
     2. Go to Settings > MCP Servers
-    3. Add Crawl4AI-MCP:
+    3. Add MCP-Crawl4AI:
        - Name: Crawl4AI
        - Transport: stdio or http
-       - Path: Path to installed crawl4ai-mcp, or HTTP URL
+       - Path: Path to installed mcp-crawl4ai, or HTTP URL
        - Arguments: leave empty for stdio, or pass `--transport http --host 127.0.0.1 --port 8000` for HTTP
     4. Save and enable the server
     5. In Claude, use the /tool command to access available tools
@@ -181,16 +181,16 @@ from fastmcp import MCPClient
   </Tab>
   <Tab>
     1. Install Cursor AI IDE: https://cursor.sh/
-    2. Set up Crawl4AI-MCP:
+    2. Set up MCP-Crawl4AI:
        - Start the server with HTTP transport
-       - In Cursor settings, add the Crawl4AI-MCP server URL
+       - In Cursor settings, add the MCP-Crawl4AI server URL
     3. Access web content directly through AI assistance in your code
   </Tab>
 </Tabs>
 
 ## Architecture
 
-Crawl4AI-MCP is built with a modular, type-safe architecture emphasizing performance, reliability, and extensibility.
+MCP-Crawl4AI is built with a modular, type-safe architecture emphasizing performance, reliability, and extensibility.
 
 ### Core Components
 
@@ -206,9 +206,9 @@ Crawl4AI-MCP is built with a modular, type-safe architecture emphasizing perform
 Use the built-in CLI options to select transport and bootstrap browser dependencies:
 
 ```bash
-crawl4ai-mcp --help
-crawl4ai-mcp --transport http --host 127.0.0.1 --port 8000
-crawl4ai-mcp --setup
+mcp-crawl4ai --help
+mcp-crawl4ai --transport http --host 127.0.0.1 --port 8000
+mcp-crawl4ai --setup
 ```
 
 ### Modern Python Standards
@@ -223,5 +223,5 @@ crawl4ai-mcp --setup
 
 - [See the PRD](/docs/prd) for detailed product requirements
 - [View contributing guidelines](/docs/contributing) to help improve the project
-- [Check out the GitHub repository](https://github.com/wyattowalsh/crawl4ai-mcp) for source code
-- [Report issues or suggest features](https://github.com/wyattowalsh/crawl4ai-mcp/issues)
+- [Check out the GitHub repository](https://github.com/wyattowalsh/mcp-crawl4ai) for source code
+- [Report issues or suggest features](https://github.com/wyattowalsh/mcp-crawl4ai/issues)

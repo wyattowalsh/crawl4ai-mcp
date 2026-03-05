@@ -9,7 +9,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from fastmcp.exceptions import ToolError
 
-from crawl4ai_mcp.server import (
+from mcp_crawl4ai.server import (
     ARTIFACT_CAPTURE_TEXT_MAX_CHARS,
     DEEP_CRAWL_FILTER_PATTERN_MAX_CHARS,
     ServerSettings,
@@ -149,7 +149,7 @@ async def test_close_and_bind_session_guard_paths() -> None:
     )
     crawler_quota = MagicMock()
     crawler_quota.crawler_strategy = MagicMock(kill_session=AsyncMock())
-    with patch("crawl4ai_mcp.server.time.time", return_value=1_000.0):
+    with patch("mcp_crawl4ai.server.time.time", return_value=1_000.0):
         with pytest.raises(ToolError, match="Session quota exceeded"):
             await _bind_session_id(
                 session_id="quota-session",

@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       {...baseOptions}
       banner={{
         dismissible: true,
-        text: '🚀 Crawl4AI-MCP is currently in development. Check out the roadmap to see what\'s coming next!',
+        text: '🚀 MCP-Crawl4AI is currently in development. Check out the roadmap to see what\'s coming next!',
       }}
       sidebar={{
         defaultOpenLevel: 1,

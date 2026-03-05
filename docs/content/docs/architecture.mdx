@@ -1,6 +1,6 @@
 ---
 title: Architecture
-description: Canonical architecture for Crawl4AI-MCP
+description: Canonical architecture for MCP-Crawl4AI
 ---
 
 import { Diagram } from '@/components';
@@ -8,7 +8,7 @@ import { Callout } from 'fumadocs-ui/components/callout';
 
 # Architecture
 
-Crawl4AI-MCP uses a single-module FastMCP server backed by one lifespan-managed `AsyncWebCrawler`.
+MCP-Crawl4AI uses a single-module FastMCP server backed by one lifespan-managed `AsyncWebCrawler`.
 
 <Callout type="info">
   Canonical tool surface: <strong>scrape</strong>, <strong>crawl</strong>, <strong>close_session</strong>, and <strong>get_artifact</strong>.
@@ -22,7 +22,7 @@ graph TB
     Client[MCP Client] --"MCP Request"--> FastMCP
     FastMCP --"MCP Response"--> Client
 
-    subgraph "Crawl4AI MCP Server"
+    subgraph "MCP-Crawl4AI Server"
         FastMCP[FastMCP v3 Server]
         Lifespan[Lifespan Manager]
         Tools[4 Tool Functions]
@@ -45,7 +45,7 @@ graph TB
     Crawler --> Browser
     Browser --"HTTP / Rendering"--> Web
   `}
-  caption="High-level architecture of Crawl4AI-MCP"
+  caption="High-level architecture of MCP-Crawl4AI"
 />
 
 ## Core Components

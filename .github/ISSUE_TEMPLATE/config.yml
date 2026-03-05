@@ -1,14 +1,14 @@
 blank_issues_enabled: true
 
 contact_links:
-  - name: 💬 Crawl4AI-MCP Discussions
-    url: https://github.com/wyattowalsh/crawl4ai-mcp/discussions
+  - name: 💬 MCP-Crawl4AI Discussions
+    url: https://github.com/wyattowalsh/mcp-crawl4ai/discussions
     about: Ask questions, share ideas, and engage with the community here.
-  - name: 📚 Crawl4AI-MCP Documentation (README)
-    url: https://github.com/wyattowalsh/crawl4ai-mcp/blob/main/README.md
+  - name: 📚 MCP-Crawl4AI Documentation (README)
+    url: https://github.com/wyattowalsh/mcp-crawl4ai/blob/main/README.md
     about: Check the main README for setup, usage, and quick start guides.
   - name: 🤝 Contribution Guidelines
-    url: https://github.com/wyattowalsh/crawl4ai-mcp/blob/main/.github/CONTRIBUTING.md
+    url: https://github.com/wyattowalsh/mcp-crawl4ai/blob/main/.github/CONTRIBUTING.md
     about: Learn how to contribute to the project.
   - name: 🔄 MCP Specification
     url: https://modelcontextprotocol.io

@@ -1,6 +1,6 @@
 ---
 title: Key Features
-description: Explore the powerful features of Crawl4AI-MCP for intelligent web crawling and data extraction
+description: Explore the powerful features of MCP-Crawl4AI for intelligent web crawling and data extraction
 ---
 
 import { FeatureCard } from '@/components';
@@ -10,7 +10,7 @@ import { Globe, Cpu, Database, Code2, Search, Clock, Zap, Shield, BarChart3 } fr
 
 # Key Features
 
-Crawl4AI-MCP offers a comprehensive set of features designed to simplify web crawling and data extraction for AI systems. This page highlights the key capabilities and how they can benefit your AI workflows.
+MCP-Crawl4AI offers a comprehensive set of features designed to simplify web crawling and data extraction for AI systems. This page highlights the key capabilities and how they can benefit your AI workflows.
 
 <Callout type="info">
   All features are accessible through the Model Context Protocol (MCP), making them available to any MCP-compatible client such as Claude Desktop.
@@ -94,7 +94,7 @@ Crawl4AI-MCP offers a comprehensive set of features designed to simplify web cra
 
     ```bash
     # Start the server with stdio transport (default)
-    crawl4ai-mcp
+    mcp-crawl4ai
     ```
   </Tab>
 
@@ -103,14 +103,14 @@ Crawl4AI-MCP offers a comprehensive set of features designed to simplify web cra
 
     ```bash
     # Start the server with HTTP transport
-    crawl4ai-mcp --transport http --host 127.0.0.1 --port 8000
+    mcp-crawl4ai --transport http --host 127.0.0.1 --port 8000
     ```
   </Tab>
 </Tabs>
 
 ### Browser Automation
 
-Crawl4AI-MCP uses a headless Chromium browser managed as a lifespan singleton. The browser starts once when the server initializes and is reused across all tool calls, then shut down cleanly on server exit. This provides:
+MCP-Crawl4AI uses a headless Chromium browser managed as a lifespan singleton. The browser starts once when the server initializes and is reused across all tool calls, then shut down cleanly on server exit. This provides:
 
 - Full rendering of JavaScript-dependent sites
 - Dynamic-content handling via canonical transformation/runtime options
@@ -130,9 +130,9 @@ Each tool that returns page content accepts an `output_format` parameter to sele
 
 ## Comparison with Alternatives
 
-Crawl4AI-MCP offers several advantages over alternative approaches:
+MCP-Crawl4AI offers several advantages over alternative approaches:
 
-| Feature | Crawl4AI-MCP | Basic Web Scrapers | Browser Automation Only | API Services |
+| Feature | MCP-Crawl4AI | Basic Web Scrapers | Browser Automation Only | API Services |
 |---------|--------------|-------------------|-------------------------|--------------|
 | MCP Protocol Support | Full | No | No | Partial |
 | JavaScript Rendering | Built-in | No | Yes | Varies |

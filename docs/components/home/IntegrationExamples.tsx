@@ -3,14 +3,14 @@ import { CodeBlock } from '@/components/ui/CodeBlock';
 
 export default function IntegrationExamples() {
   const pythonExample = `import asyncio
-from crawl4ai_mcp import MCPServer
+from mcp_crawl4ai import MCPServer
 
 async def main():
     server = MCPServer()
     await server.start()
     
     # Server will respond to MCP client requests
-    print("Crawl4AI-MCP server running on port 8000")
+    print("MCP-Crawl4AI server running on port 8000")
     
     # Keep the server running
     try:
@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
   const claudeExample = `Human: Can you find the latest research on quantum computing advancements?
 
-Claude: I'll search for the latest quantum computing research. Let me use Crawl4AI-MCP to find recent publications.
+Claude: I'll search for the latest quantum computing research. Let me use MCP-Crawl4AI to find recent publications.
 
 <mcp:function>
 {
@@ -44,7 +44,7 @@ Based on the latest research papers I found, here are the most recent quantum co
             Easy Integration
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Crawl4AI-MCP works seamlessly with any MCP-compatible client, including Claude and GPT.
+            MCP-Crawl4AI works seamlessly with any MCP-compatible client, including Claude and GPT.
           </p>
         </div>
 

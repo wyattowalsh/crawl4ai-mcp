@@ -24,22 +24,22 @@ dependencies = [
 ]
 
 [project.scripts]
-crawl4ai-mcp = "crawl4ai_mcp.server:main"
+mcp-crawl4ai = "mcp_crawl4ai.server:main"
 
 [project.urls]
-Homepage = "https://github.com/wyattowalsh/crawl4ai-mcp"
-Documentation = "https://wyattowalsh.github.io/crawl4ai-mcp/"
-Repository = "https://github.com/wyattowalsh/crawl4ai-mcp"
-Issues = "https://github.com/wyattowalsh/crawl4ai-mcp/issues"
-Changelog = "https://github.com/wyattowalsh/crawl4ai-mcp/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/wyattowalsh/mcp-crawl4ai"
+Documentation = "https://wyattowalsh.github.io/mcp-crawl4ai/"
+Repository = "https://github.com/wyattowalsh/mcp-crawl4ai"
+Issues = "https://github.com/wyattowalsh/mcp-crawl4ai/issues"
+Changelog = "https://github.com/wyattowalsh/mcp-crawl4ai/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["crawl4ai_mcp"]
-package-data = {"crawl4ai_mcp" = ["py.typed"]}
+packages = ["mcp_crawl4ai"]
+package-data = {"mcp_crawl4ai" = ["py.typed"]}
 
 [dependency-groups]
 dev = [
@@ -63,7 +63,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["crawl4ai_mcp"]
+source = ["mcp_crawl4ai"]
 omit = ["tests/*"]
 
 [tool.coverage.report]

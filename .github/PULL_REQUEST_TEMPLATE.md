@@ -1,8 +1,8 @@
 <div align="center">
 
-# 📝 Pull Request: Crawl4AI-MCP
+# 📝 Pull Request: MCP-Crawl4AI
 
-[![PR Banner](https://img.shields.io/badge/Pull%20Request-Crawl4AI--MCP-blue?style=for-the-badge)](https://github.com/wyattowalsh/crawl4ai-mcp)
+[![PR Banner](https://img.shields.io/badge/Pull%20Request-MCP--Crawl4AI-blue?style=for-the-badge)](https://github.com/wyattowalsh/mcp-crawl4ai)
 
 </div>
 
@@ -46,7 +46,7 @@ Go through all the following points, and put an `x` in all the boxes that apply.
 If you're unsure about any of these, don't hesitate to ask. We're here to help! 
 -->
 
-- [ ] I have read the [**CONTRIBUTING.md**](https://github.com/wyattowalsh/crawl4ai-mcp/blob/main/.github/CONTRIBUTING.md) document.
+- [ ] I have read the [**CONTRIBUTING.md**](https://github.com/wyattowalsh/mcp-crawl4ai/blob/main/.github/CONTRIBUTING.md) document.
 - [ ] My code follows the style guidelines of this project (ran `pre-commit run --all-files` and fixed issues).
 - [ ] I have performed a self-review of my own code.
 - [ ] I have commented my code where necessary, particularly in hard-to-understand areas.
@@ -171,6 +171,6 @@ List any relevant details for your testing configuration (OS, Python version, et
 
 <div align="center">
 
-**Thank you for your contribution!** ✨ We appreciate you taking the time to help improve Crawl4AI-MCP.
+**Thank you for your contribution!** ✨ We appreciate you taking the time to help improve MCP-Crawl4AI.
 
 </div> 

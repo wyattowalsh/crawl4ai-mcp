@@ -13,7 +13,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --no-dev --frozen --no-install-project
 
 # Copy source and package metadata required by pyproject
-COPY crawl4ai_mcp/ ./crawl4ai_mcp/
+COPY mcp_crawl4ai/ ./mcp_crawl4ai/
 COPY README.md LICENSE ./
 RUN uv sync --no-dev --frozen
 
@@ -44,4 +44,4 @@ EXPOSE 8000
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["uv", "run", "crawl4ai-mcp", "--transport", "http", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "mcp-crawl4ai", "--transport", "http", "--host", "0.0.0.0", "--port", "8000"]

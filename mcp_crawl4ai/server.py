@@ -44,7 +44,7 @@ from fastmcp.server.lifespan import lifespan
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from crawl4ai_mcp import SCRAPE_CRAWL_CONTRACT_SCHEMA_VERSION, __version__
+from mcp_crawl4ai import SCRAPE_CRAWL_CONTRACT_SCHEMA_VERSION, __version__
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -161,7 +161,7 @@ class ServerSettings(BaseSettings):
     """Top-level server settings loaded from environment variables."""
 
     model_config = SettingsConfigDict(
-        env_prefix="CRAWL4AI_MCP_",
+        env_prefix="MCP_CRAWL4AI_",
         env_nested_delimiter="__",
         extra="ignore",
     )

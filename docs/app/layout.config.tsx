@@ -16,7 +16,7 @@ export function Providers({ children }: { children: ReactNode }) {
 
 export const baseOptions: Partial<DocsLayoutProps & HomeLayoutProps> = {
   nav: {
-    title: 'Crawl4AI-MCP',
+    title: 'MCP-Crawl4AI',
     enabled: true,
     url: '/',
     component: undefined,
@@ -37,7 +37,7 @@ export const baseOptions: Partial<DocsLayoutProps & HomeLayoutProps> = {
       </svg>
     ),
   },
-  githubUrl: 'https://github.com/wyattowalsh/crawl4ai-mcp',
+  githubUrl: 'https://github.com/wyattowalsh/mcp-crawl4ai',
   links: [
     {
       text: 'Documentation',

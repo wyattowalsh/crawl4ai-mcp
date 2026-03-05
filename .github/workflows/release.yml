@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: uv sync
       - name: Run tests
-        run: uv run pytest --cov=crawl4ai_mcp --cov-report=term-missing
+        run: uv run pytest --cov=mcp_crawl4ai --cov-report=term-missing
       - name: Build package
         run: uv build
       - name: Upload artifacts

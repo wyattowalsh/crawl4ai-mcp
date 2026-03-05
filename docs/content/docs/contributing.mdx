@@ -1,14 +1,14 @@
 ---
 title: Contributing Guide
-description: Guidelines for contributing to the Crawl4AI-MCP project
+description: Guidelines for contributing to the MCP-Crawl4AI project
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
 
-# Contributing to Crawl4AI-MCP
+# Contributing to MCP-Crawl4AI
 
-Thank you for your interest in contributing to Crawl4AI-MCP! This guide will help you get started with the development process and outline our contribution guidelines.
+Thank you for your interest in contributing to MCP-Crawl4AI! This guide will help you get started with the development process and outline our contribution guidelines.
 
 <Callout type="info">
   We welcome contributions of all sizes, from fixing typos in documentation to implementing new features.
@@ -29,27 +29,27 @@ Thank you for your interest in contributing to Crawl4AI-MCP! This guide will hel
   <Tab value="MacOS/Linux">
     ```bash
     # Clone the repository
-    git clone https://github.com/wyattowalsh/crawl4ai-mcp.git
-    cd crawl4ai-mcp
+    git clone https://github.com/wyattowalsh/mcp-crawl4ai.git
+    cd mcp-crawl4ai
 
     # Install dependencies (including dev group)
     uv sync --group dev
 
-    # Install browser dependencies for crawl4ai-mcp
-    crawl4ai-mcp --setup
+    # Install browser dependencies for mcp-crawl4ai
+    mcp-crawl4ai --setup
     ```
   </Tab>
   <Tab value="Windows">
     ```powershell
     # Clone the repository
-    git clone https://github.com/wyattowalsh/crawl4ai-mcp.git
-    cd crawl4ai-mcp
+    git clone https://github.com/wyattowalsh/mcp-crawl4ai.git
+    cd mcp-crawl4ai
 
     # Install dependencies (including dev group)
     uv sync --group dev
 
-    # Install browser dependencies for crawl4ai-mcp
-    crawl4ai-mcp --setup
+    # Install browser dependencies for mcp-crawl4ai
+    mcp-crawl4ai --setup
     ```
   </Tab>
 </Tabs>
@@ -87,7 +87,7 @@ uv run ruff check .
 uv run ruff format .
 
 # Type check
-uv run ty check crawl4ai_mcp/
+uv run ty check mcp_crawl4ai/
 ```
 
 ### Testing
@@ -99,7 +99,7 @@ We use pytest for testing with asyncio support.
 uv run pytest
 
 # Run with coverage
-uv run pytest --cov=crawl4ai_mcp
+uv run pytest --cov=mcp_crawl4ai
 
 # Run specific tests
 uv run pytest tests/test_server.py
@@ -142,4 +142,4 @@ Then visit `http://localhost:3000` to preview the changes.
 - Help others learn and grow
 - Give credit where it's due
 
-Thank you for contributing to Crawl4AI-MCP! Your help makes this project better for everyone.
+Thank you for contributing to MCP-Crawl4AI! Your help makes this project better for everyone.

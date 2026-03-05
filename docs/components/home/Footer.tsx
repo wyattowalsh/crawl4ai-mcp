@@ -11,7 +11,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/logo.png"
-                alt="Crawl4AI MCP Logo"
+                alt="MCP-Crawl4AI Logo"
                 width={40}
                 height={40}
                 className="w-8 h-8"
@@ -24,7 +24,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <a 
-                href="https://github.com/wyattowalsh/crawl4ai-mcp" 
+                href="https://github.com/wyattowalsh/mcp-crawl4ai" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
@@ -105,7 +105,7 @@ export default function Footer() {
         
         <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Crawl4AI MCP. All rights reserved.
+            &copy; {new Date().getFullYear()} MCP-Crawl4AI. All rights reserved.
           </p>
           <p className="text-xs text-slate-400 dark:text-slate-500">
             <span className="font-mono">Built with Python 3.10+, UV, and UVX optimization</span>

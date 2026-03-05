@@ -1,6 +1,6 @@
 """Contract lock tests for the scrape/crawl surface."""
 
-from crawl4ai_mcp import (
+from mcp_crawl4ai import (
     SCRAPE_CRAWL_CONTRACT_SCHEMA_VERSION,
     SCRAPE_CRAWL_ENVELOPE_FIELDS,
     SCRAPE_CRAWL_MIGRATION_MAP,

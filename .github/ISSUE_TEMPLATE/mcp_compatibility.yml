@@ -12,7 +12,7 @@ body:
         
         ![MCP Issue](https://img.shields.io/badge/Issue%20Type-MCP%20Compatibility-orange?style=for-the-badge)
         
-        **Help us ensure Crawl4AI-MCP correctly implements the Model Context Protocol**
+        **Help us ensure MCP-Crawl4AI correctly implements the Model Context Protocol**
         
         </div>
         
@@ -68,7 +68,7 @@ body:
       description: Provide clear steps to reproduce the compatibility issue.
       placeholder: |
         Example:
-        1. Start the MCP server with `crawl4ai-mcp --transport http`
+        1. Start the MCP server with `mcp-crawl4ai --transport http`
         2. Connect an MCP client over HTTP and call the `scrape` tool with invalid input:
            ```json
            {
@@ -143,7 +143,7 @@ body:
     id: client_impact
     attributes:
       label: 🔄 Impact on MCP Clients
-      description: How does this compatibility issue affect MCP clients interacting with Crawl4AI-MCP?
+      description: How does this compatibility issue affect MCP clients interacting with MCP-Crawl4AI?
       placeholder: |
         Example: "Clients expecting standard MCP error codes may fail to properly handle errors from the server. This could result in confused error reporting, failure to retry operations appropriately, or inability to provide users with meaningful error messages."
       render: markdown
@@ -167,7 +167,7 @@ body:
           required: true
         - label: I have verified this against the latest MCP specification
           required: true
-        - label: I am using the latest version of Crawl4AI-MCP
+        - label: I am using the latest version of MCP-Crawl4AI
           required: true
 
   - type: markdown

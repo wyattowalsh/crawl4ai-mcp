@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Auto-detection and installation of Playwright browsers on first server startup.
-- `--setup` CLI flag for one-time browser installation (`crawl4ai-mcp --setup`).
+- `--setup` CLI flag for one-time browser installation (`mcp-crawl4ai --setup`).
 - 3 MCP prompts: `summarize_page`, `build_extraction_schema`, `compare_pages`.
 - GitHub Actions release workflow with PyPI trusted publishing.
 - Enhanced README with collapsible sections, full tool signatures, mermaid architecture diagram.
@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Package renamed to `mcp-crawl4ai`** on PyPI (CLI command remains `crawl4ai-mcp`).
+- **Package renamed to `mcp-crawl4ai`** on PyPI (CLI command remains `mcp-crawl4ai`).
 - Version now derived from package metadata (`importlib.metadata`) instead of hardcoded.
 - Consolidated issue templates from 10 to 5 (removed overly-granular templates).
 - Bumped version to 0.3.0 for PyPI publication.

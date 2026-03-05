@@ -11,11 +11,11 @@ from crawl4ai import JsonCssExtractionStrategy, JsonXPathExtractionStrategy
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
-from crawl4ai_mcp import (
+from mcp_crawl4ai import (
     SCRAPE_CRAWL_CONTRACT_SCHEMA_VERSION,
     SCRAPE_CRAWL_ENVELOPE_FIELDS,
 )
-from crawl4ai_mcp.server import (
+from mcp_crawl4ai.server import (
     BATCH_ITEM_CHARS,
     MAX_RESPONSE_CHARS,
     SESSION_TTL_SECONDS_DEFAULT,
@@ -356,7 +356,7 @@ class TestCrawl:
         c, mock_crawler = client
         mock_crawler.arun = AsyncMock(return_value=[mock_crawl_result, mock_failed_result])
 
-        with patch("crawl4ai_mcp.server.DFSDeepCrawlStrategy") as mock_dfs:
+        with patch("mcp_crawl4ai.server.DFSDeepCrawlStrategy") as mock_dfs:
             mock_dfs.return_value = MagicMock()
             result = await c.call_tool(
                 "crawl",
@@ -465,7 +465,7 @@ class TestSessionAndArtifacts:
         mock_crawler.crawler_strategy.kill_session = AsyncMock()
 
         with patch(
-            "crawl4ai_mcp.server.time.time",
+            "mcp_crawl4ai.server.time.time",
             side_effect=[1000.0, 1000.0 + SESSION_TTL_SECONDS_DEFAULT + 1],
         ):
             await c.call_tool(
@@ -680,7 +680,7 @@ class TestSettings:
         assert BATCH_ITEM_CHARS > 0
 
     def test_settings_supports_nested_env_overrides(self):
-        with patch.dict("os.environ", {"CRAWL4AI_MCP_DEFAULTS__MAX_RESPONSE_CHARS": "1234"}):
+        with patch.dict("os.environ", {"MCP_CRAWL4AI_DEFAULTS__MAX_RESPONSE_CHARS": "1234"}):
             settings = _load_settings(reload=True)
             assert settings.defaults.max_response_chars == 1234
             assert _get_max_response_chars() == 1234
@@ -739,7 +739,7 @@ class TestSSRFProtection:
 
     def test_hostname_resolve_blocks_non_global_addresses(self):
         with patch(
-            "crawl4ai_mcp.server.socket.getaddrinfo",
+            "mcp_crawl4ai.server.socket.getaddrinfo",
             return_value=[(2, 1, 6, "", ("127.0.0.1", 80))],
         ):
             with pytest.raises(ToolError, match="Private/loopback"):
@@ -747,7 +747,7 @@ class TestSSRFProtection:
 
     def test_hostname_resolve_allows_global_addresses(self):
         with patch(
-            "crawl4ai_mcp.server.socket.getaddrinfo",
+            "mcp_crawl4ai.server.socket.getaddrinfo",
             return_value=[(2, 1, 6, "", ("93.184.216.34", 80))],
         ) as mock_getaddrinfo:
             _validate_url("http://example.com/foo")
@@ -895,22 +895,22 @@ class TestPrompts:
 
 class TestMain:
     def test_main_stdio(self):
-        from crawl4ai_mcp.server import mcp as _mcp
+        from mcp_crawl4ai.server import mcp as _mcp
 
         with (
-            patch("sys.argv", ["crawl4ai-mcp"]),
+            patch("sys.argv", ["mcp-crawl4ai"]),
             patch.object(_mcp, "run") as mock_run,
         ):
             main()
             mock_run.assert_called_once_with()
 
     def test_main_http(self):
-        from crawl4ai_mcp.server import mcp as _mcp
+        from mcp_crawl4ai.server import mcp as _mcp
 
         with (
             patch(
                 "sys.argv",
-                ["crawl4ai-mcp", "--transport", "http", "--host", "0.0.0.0", "--port", "9000"],
+                ["mcp-crawl4ai", "--transport", "http", "--host", "0.0.0.0", "--port", "9000"],
             ),
             patch.object(_mcp, "run") as mock_run,
             patch("sys.stderr", new_callable=io.StringIO) as mock_stderr,
@@ -921,12 +921,12 @@ class TestMain:
             assert "reverse proxy" in mock_stderr.getvalue()
 
     def test_main_http_loopback_no_warning(self):
-        from crawl4ai_mcp.server import mcp as _mcp
+        from mcp_crawl4ai.server import mcp as _mcp
 
         with (
             patch(
                 "sys.argv",
-                ["crawl4ai-mcp", "--transport", "http", "--host", "127.0.0.1", "--port", "9000"],
+                ["mcp-crawl4ai", "--transport", "http", "--host", "127.0.0.1", "--port", "9000"],
             ),
             patch.object(_mcp, "run") as mock_run,
             patch("sys.stderr", new_callable=io.StringIO) as mock_stderr,
@@ -940,7 +940,7 @@ class TestSetupFlag:
     def test_setup_flag_runs_setup(self, mocker):
         mock_run = mocker.patch("subprocess.run")
         mock_run.return_value = mocker.Mock(returncode=0, stderr="")
-        mocker.patch("sys.argv", ["crawl4ai-mcp", "--setup"])
+        mocker.patch("sys.argv", ["mcp-crawl4ai", "--setup"])
 
         with pytest.raises(SystemExit) as exc_info:
             main()
@@ -954,7 +954,7 @@ class TestSetupFlag:
     def test_setup_flag_failure(self, mocker):
         mock_run = mocker.patch("subprocess.run")
         mock_run.return_value = mocker.Mock(returncode=1, stderr="Error")
-        mocker.patch("sys.argv", ["crawl4ai-mcp", "--setup"])
+        mocker.patch("sys.argv", ["mcp-crawl4ai", "--setup"])
 
         with pytest.raises(SystemExit) as exc_info:
             main()
@@ -971,8 +971,8 @@ class TestBrowserAutoDetection:
         mock_crawler.arun = AsyncMock(return_value=mock_crawl_result)
 
         with (
-            patch("crawl4ai_mcp.server.AsyncWebCrawler", return_value=mock_crawler),
-            patch("crawl4ai_mcp.server.subprocess.run") as mock_run,
+            patch("mcp_crawl4ai.server.AsyncWebCrawler", return_value=mock_crawler),
+            patch("mcp_crawl4ai.server.subprocess.run") as mock_run,
         ):
             mock_run.return_value = MagicMock(returncode=0)
             async with Client(mcp) as c:
@@ -989,6 +989,6 @@ class TestBrowserAutoDetection:
 class TestSmoke:
     @pytest.mark.smoke
     def test_server_import(self):
-        from crawl4ai_mcp.server import mcp as _mcp
+        from mcp_crawl4ai.server import mcp as _mcp
 
         assert _mcp.name == "crawl4ai"

@@ -50,7 +50,7 @@ export default function Home() {
           <div className="w-full lg:w-1/2 space-y-6 text-center lg:text-left">
             <div className="space-y-2">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                <span className="gradient-text">Crawl4AI-MCP</span>
+                <span className="gradient-text">MCP-Crawl4AI</span>
               </h1>
               <p className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300">
                 Web Crawling for AI Knowledge Context
@@ -72,7 +72,7 @@ export default function Home() {
                 </svg>
               </Link>
               <Link 
-                href="https://github.com/wyattowalsh/crawl4ai-mcp" 
+                href="https://github.com/wyattowalsh/mcp-crawl4ai" 
                 className={cn(baseButtonStyles, secondaryButtonStyles, largeButtonStyles, "flex items-center justify-center gap-2")}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -129,7 +129,7 @@ export default function Home() {
                   
                   {/* Code example */}
                   <div className="mt-4 bg-gray-900 rounded-lg p-4 text-sm font-mono text-gray-300 overflow-hidden">
-                    <div className="opacity-70">// Connect Crawl4AI-MCP to your AI assistant</div>
+                    <div className="opacity-70">// Connect MCP-Crawl4AI to your AI assistant</div>
                     <div className="text-blue-400">const</div>
                     <div><span className="text-green-400">assistant</span> = <span className="text-blue-400">new</span> <span className="text-yellow-400">AI</span>();</div>
                     <div><span className="text-green-400">assistant</span>.<span className="text-blue-400">addMcpTool</span>({</div>

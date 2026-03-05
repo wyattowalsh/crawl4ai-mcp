@@ -1,8 +1,8 @@
-# Contributing to Crawl4AI-MCP
+# Contributing to MCP-Crawl4AI
 
 <div align="center">
   
-[![Crawl4AI-MCP Logo](assets/img/logo.png)](https://github.com/wyattowalsh/crawl4ai-mcp)
+[![MCP-Crawl4AI Logo](assets/img/logo.png)](https://github.com/wyattowalsh/mcp-crawl4ai)
 
 *Empowering AI models with real-time web access and processing.*
 
@@ -16,11 +16,11 @@
 ---
 
 > **Looking for comprehensive documentation?**  
-> Visit our [documentation site's Contributing Guide](https://wyattowalsh.github.io/crawl4ai-mcp/docs/contributing) for detailed guidelines and examples.
+> Visit our [documentation site's Contributing Guide](https://wyattowalsh.github.io/mcp-crawl4ai/docs/contributing) for detailed guidelines and examples.
 
-👋 **Welcome!** Thank you for your interest in contributing to **Crawl4AI-MCP**.
+👋 **Welcome!** Thank you for your interest in contributing to **MCP-Crawl4AI**.
 
-This guide provides a concise overview of our contribution process. For more detailed information, please refer to our [documentation site](https://wyattowalsh.github.io/crawl4ai-mcp/docs/contributing).
+This guide provides a concise overview of our contribution process. For more detailed information, please refer to our [documentation site](https://wyattowalsh.github.io/mcp-crawl4ai/docs/contributing).
 
 ## 📋 Table of Contents
 
@@ -36,7 +36,7 @@ This guide provides a concise overview of our contribution process. For more det
 
 ## 🌐 Project Overview
 
-Crawl4AI-MCP bridges Crawl4AI's web crawling with the Model Context Protocol (MCP), allowing AI models to interact with live web content dynamically.
+MCP-Crawl4AI bridges Crawl4AI's web crawling with the Model Context Protocol (MCP), allowing AI models to interact with live web content dynamically.
 
 **Key Features:**
 - Flexible web crawling (single URL, deep crawl)
@@ -45,7 +45,7 @@ Crawl4AI-MCP bridges Crawl4AI's web crawling with the Model Context Protocol (MC
 - MCP-compliant API
 - Authenticated site access
 
-For detailed information, see our [documentation site](https://wyattowalsh.github.io/crawl4ai-mcp/).
+For detailed information, see our [documentation site](https://wyattowalsh.github.io/mcp-crawl4ai/).
 
 ## 🤝 How Can I Contribute?
 
@@ -88,14 +88,14 @@ We welcome improvements to user guides, API documentation, tutorials, and code c
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR-USERNAME/Crawl4AI-MCP.git
-cd crawl4ai-mcp
+git clone https://github.com/YOUR-USERNAME/MCP-Crawl4AI.git
+cd mcp-crawl4ai
 
 # Install dependencies
 uv sync
 
 # Install browser (first time)
-crawl4ai-mcp --setup
+mcp-crawl4ai --setup
 
 # Run tests
 uv run pytest
@@ -110,7 +110,7 @@ We follow standard Python best practices with automated tooling:
 - **Formatting/Linting:** Ruff
 - **Type Checking:** ty
 
-Run `uv run ruff check crawl4ai_mcp/` and `uv run ty check crawl4ai_mcp/` to check compliance.
+Run `uv run ruff check mcp_crawl4ai/` and `uv run ty check mcp_crawl4ai/` to check compliance.
 
 ### Documentation Style
 
@@ -135,7 +135,7 @@ Run `uv run ruff check crawl4ai_mcp/` and `uv run ty check crawl4ai_mcp/` to che
 uv run pytest
 
 # Run with coverage
-uv run pytest --cov=crawl4ai_mcp
+uv run pytest --cov=mcp_crawl4ai
 
 # Run specific tests
 uv run pytest tests/test_server.py
@@ -219,7 +219,7 @@ We require comprehensive automated testing for all code contributions:
 uv run pytest
 
 # Run with coverage
-uv run pytest --cov=crawl4ai_mcp
+uv run pytest --cov=mcp_crawl4ai
 ```
 
 ### Testing with MCP Inspector
@@ -228,10 +228,10 @@ The MCP Inspector is a visual testing and debugging tool for MCP servers. We hig
 
 ```bash
 # Run Inspector against your local development server
-npx @modelcontextprotocol/inspector python -m crawl4ai_mcp.server
+npx @modelcontextprotocol/inspector python -m mcp_crawl4ai.server
 
 # With environment variables for testing configuration
-npx @modelcontextprotocol/inspector -e LOG_LEVEL=debug python -m crawl4ai_mcp.server
+npx @modelcontextprotocol/inspector -e LOG_LEVEL=debug python -m mcp_crawl4ai.server
 ```
 
 MCP Inspector provides:
@@ -246,7 +246,7 @@ For more details, see the [MCP Inspector documentation](https://modelcontextprot
 
 ## 📦 Release Publishing (PyPI)
 
-For GitHub Actions Trusted Publishing, configure PyPI with these exact values: **owner** `wyattowalsh`, **repo** `crawl4ai-mcp`, **workflow** `release.yml`, **environment** `pypi`.
+For GitHub Actions Trusted Publishing, configure PyPI with these exact values: **owner** `wyattowalsh`, **repo** `mcp-crawl4ai`, **workflow** `release.yml`, **environment** `pypi`.
 
 If publishing fails, first verify those values match exactly in PyPI. You may also set an optional `PYPI_API_TOKEN` repository secret as a fallback for token-based publishing.
 
@@ -256,20 +256,20 @@ gh run rerun 22700192024 && gh run watch 22700192024 --exit-status
 
 ## 🆘 Getting Help
 
-- **Questions:** [GitHub Discussions](https://github.com/wyattowalsh/crawl4ai-mcp/discussions)
-- **Bugs/Features:** [Issue Tracker](https://github.com/wyattowalsh/crawl4ai-mcp/issues)
+- **Questions:** [GitHub Discussions](https://github.com/wyattowalsh/mcp-crawl4ai/discussions)
+- **Bugs/Features:** [Issue Tracker](https://github.com/wyattowalsh/mcp-crawl4ai/issues)
 - **Protocol Details:** [MCP Specification](https://modelcontextprotocol.io)
 
 ---
 
 <div align="center">
 
-### 🎉 Thank you for contributing to Crawl4AI-MCP! 🎉
+### 🎉 Thank you for contributing to MCP-Crawl4AI! 🎉
 
 <p>
-<a href="https://github.com/wyattowalsh/crawl4ai-mcp">GitHub Repo</a> | 
-<a href="https://github.com/wyattowalsh/crawl4ai-mcp/issues">Issues</a> | 
-<a href="https://github.com/wyattowalsh/crawl4ai-mcp/discussions">Discussions</a> | 
+<a href="https://github.com/wyattowalsh/mcp-crawl4ai">GitHub Repo</a> | 
+<a href="https://github.com/wyattowalsh/mcp-crawl4ai/issues">Issues</a> | 
+<a href="https://github.com/wyattowalsh/mcp-crawl4ai/discussions">Discussions</a> | 
 <a href="https://modelcontextprotocol.io">MCP Spec</a>
 </p>
 

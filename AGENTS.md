@@ -1,4 +1,4 @@
-# AGENTS.md -- crawl4ai-mcp
+# AGENTS.md -- mcp-crawl4ai
 
 AI agent instructions for this project.
 
@@ -16,13 +16,13 @@ AI agent instructions for this project.
 
 | File | Purpose |
 |------|---------|
-| `crawl4ai_mcp/server.py` | **All** server logic -- 11 tools, 2 resources, 3 prompts, lifespan, auto-setup |
-| `crawl4ai_mcp/__init__.py` | Package version via `importlib.metadata` |
+| `mcp_crawl4ai/server.py` | **All** server logic -- 11 tools, 2 resources, 3 prompts, lifespan, auto-setup |
+| `mcp_crawl4ai/__init__.py` | Package version via `importlib.metadata` |
 | `pyproject.toml` | Project config, dependencies, tool config |
 | `tests/conftest.py` | Test fixtures (mock crawler, client) |
 | `tests/test_server.py` | 100+ tests -- all in-memory, no browser |
 | `tests/manual/` | Manual live test scripts (require browser) |
-| `crawl4ai_mcp/py.typed` | PEP 561 typed package marker |
+| `mcp_crawl4ai/py.typed` | PEP 561 typed package marker |
 | `.github/workflows/ci.yml` | GitHub Actions CI (test + lint + typecheck + Codecov) |
 | `.github/workflows/release.yml` | Release workflow (build + PyPI publish + GitHub Release) |
 | `.github/dependabot.yml` | Dependabot for pip + GitHub Actions |
@@ -36,26 +36,26 @@ AI agent instructions for this project.
 # Install
 uv sync
 
-# Install browser (first time -- or use crawl4ai-mcp --setup)
-crawl4ai-mcp --setup
+# Install browser (first time -- or use mcp-crawl4ai --setup)
+mcp-crawl4ai --setup
 
 # Run (stdio -- default for Claude Desktop / MCP clients)
-crawl4ai-mcp
+mcp-crawl4ai
 
 # Run (HTTP -- defaults to 127.0.0.1; set --host explicitly for external exposure)
-crawl4ai-mcp --transport http --port 8000
+mcp-crawl4ai --transport http --port 8000
 
 # Tests
 uv run pytest
 
 # Tests with coverage
-uv run pytest --cov=crawl4ai_mcp
+uv run pytest --cov=mcp_crawl4ai
 
 # Lint
-uv run ruff check crawl4ai_mcp/
+uv run ruff check mcp_crawl4ai/
 
 # Type check
-uv run ty check crawl4ai_mcp/
+uv run ty check mcp_crawl4ai/
 ```
 
 ## CI / Pre-commit
@@ -68,10 +68,10 @@ uv run pre-commit install
 uv run pre-commit run --all-files
 
 # Build Docker image
-docker build -t crawl4ai-mcp .
+docker build -t mcp-crawl4ai .
 
 # Run via Docker (HTTP transport)
-docker run -p 8000:8000 crawl4ai-mcp
+docker run -p 8000:8000 mcp-crawl4ai
 ```
 
 ## Architecture
@@ -116,13 +116,13 @@ FastMCP("crawl4ai")
 
 Tests use `fastmcp.Client(mcp)` for in-memory testing -- no browser or network required.
 The conftest patches `AsyncWebCrawler` with `AsyncMock`. All tests should pass in <60s.
-PyPI package name: `mcp-crawl4ai` (CLI command: `crawl4ai-mcp`).
+PyPI package name: `mcp-crawl4ai` (CLI command: `mcp-crawl4ai`).
 Coverage threshold: 90% (currently ~98%). Markers: `unit`, `smoke`, `integration`, `e2e`.
 
 ## What NOT to Do
 
 - Do not add dependencies without `uv add`
 - Do not write to stdout (`print()`) in any tool or resource
-- Do not create new files in `crawl4ai_mcp/` -- keep all logic in `server.py`
+- Do not create new files in `mcp_crawl4ai/` -- keep all logic in `server.py`
 - Do not use `asyncio.run()` inside tools -- the server handles the event loop
 - Do not hardcode URLs or test against live websites

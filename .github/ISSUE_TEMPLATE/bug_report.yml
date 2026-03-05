@@ -1,5 +1,5 @@
 name: 🐞 Bug Report
-description: Create a report to help us improve crawl4ai-mcp
+description: Create a report to help us improve mcp-crawl4ai
 title: "[BUG] "
 labels: ["bug", "triage"]
 assignees: ""
@@ -11,14 +11,14 @@ body:
 
         # 🐞 Bug Report
 
-        **Thank you for helping us improve Crawl4AI-MCP!**
+        **Thank you for helping us improve MCP-Crawl4AI!**
 
         ![Bug Report Banner](https://img.shields.io/badge/Report%20Type-Bug-red?style=for-the-badge)
         </div>
 
         ---
 
-        > **Important:** Before submitting, please [search existing issues](https://github.com/wyattowalsh/crawl4ai-mcp/issues?q=is%3Aissue+label%3Abug) to ensure this bug hasn't already been reported.
+        > **Important:** Before submitting, please [search existing issues](https://github.com/wyattowalsh/mcp-crawl4ai/issues?q=is%3Aissue+label%3Abug) to ensure this bug hasn't already been reported.
 
   - type: textarea
     id: description
@@ -36,7 +36,7 @@ body:
       label: 🔄 Steps To Reproduce
       description: Provide detailed, step-by-step instructions to reproduce the behavior. Use numbered lists.
       placeholder: |
-        1. Start the MCP server: `crawl4ai-mcp --transport http`
+        1. Start the MCP server: `mcp-crawl4ai --transport http`
         2. Connect your MCP client to the local HTTP server.
         3. Call the affected tool (for example, `scrape`) with the following arguments:
            ```json
@@ -86,20 +86,20 @@ body:
       placeholder: |
         ```log
         # Paste relevant logs here
-        2024-07-29 10:15:30 ERROR [crawl4ai_mcp.crawlers.browser] Playwright execution failed...
+        2024-07-29 10:15:30 ERROR [mcp_crawl4ai.crawlers.browser] Playwright execution failed...
         ```
 
   - type: textarea
     id: environment
     attributes:
       label: 🖥️ Environment Details
-      description: Please provide details about the environment where you encountered the bug. Run `python --version`, `pip show crawl4ai-mcp`, etc.
+      description: Please provide details about the environment where you encountered the bug. Run `python --version`, `pip show mcp-crawl4ai`, etc.
       value: |
         | Component            | Details                                     |
         | :------------------- | :------------------------------------------ |
         | OS                   | <!-- e.g., macOS 14.5, Ubuntu 22.04 LTS --> |
         | Python Version       | <!-- e.g., 3.14.0 -->                       |
-        | crawl4ai-mcp Version | <!-- e.g., 0.3.0 -->                        |
+        | mcp-crawl4ai Version | <!-- e.g., 0.3.0 -->                        |
         | Installation Method  | <!-- e.g., pip, source, docker -->           |
         | MCP Transport Used   | <!-- e.g., STDIO, HTTP -->                    |
         | Browser (if relevant)| <!-- e.g., Chromium 125, Firefox 126 -->    |
@@ -140,6 +140,6 @@ body:
         <div align="center">
 
         ### Thank you for taking the time to file a detailed bug report! 🙏
-        This information helps us improve Crawl4AI-MCP for everyone.
+        This information helps us improve MCP-Crawl4AI for everyone.
 
         </div> 

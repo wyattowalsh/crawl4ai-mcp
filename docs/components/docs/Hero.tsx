@@ -57,7 +57,7 @@ export function Hero({
           </div>
           <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4 animate-slide-up [animation-delay:600ms]">
             <Link
-              href="https://github.com/wyattowalsh/crawl4ai-mcp"
+              href="https://github.com/wyattowalsh/mcp-crawl4ai"
               className="inline-flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
               target="_blank"
               rel="noopener noreferrer"

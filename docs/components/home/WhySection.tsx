@@ -6,10 +6,10 @@ export default function WhySection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-            Why Choose Crawl4AI-MCP?
+            Why Choose MCP-Crawl4AI?
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Designed specifically for AI workflows, Crawl4AI-MCP bridges the gap between web data and AI models.
+            Designed specifically for AI workflows, MCP-Crawl4AI bridges the gap between web data and AI models.
           </p>
         </div>
 

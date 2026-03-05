@@ -2,9 +2,9 @@
 
 <div align="center">
 
-# 🔒 Crawl4AI-MCP Security Policy
+# 🔒 MCP-Crawl4AI Security Policy
 
-[![Security Policy Banner](https://img.shields.io/badge/Security-Policy-red?style=for-the-badge)](https://github.com/wyattowalsh/crawl4ai-mcp/security/policy)
+[![Security Policy Banner](https://img.shields.io/badge/Security-Policy-red?style=for-the-badge)](https://github.com/wyattowalsh/mcp-crawl4ai/security/policy)
 
 </div>
 
@@ -12,13 +12,13 @@
 
 ## Reporting a Vulnerability
 
-The Crawl4AI-MCP team takes security vulnerabilities seriously. We appreciate your efforts to responsibly disclose your findings and will make every effort to acknowledge your contributions.
+The MCP-Crawl4AI team takes security vulnerabilities seriously. We appreciate your efforts to responsibly disclose your findings and will make every effort to acknowledge your contributions.
 
 ### Reporting Process
 
 **For all security vulnerabilities (critical or low severity):**
 
-1. Use GitHub private vulnerability reporting: [https://github.com/wyattowalsh/crawl4ai-mcp/security/advisories/new](https://github.com/wyattowalsh/crawl4ai-mcp/security/advisories/new)
+1. Use GitHub private vulnerability reporting: [https://github.com/wyattowalsh/mcp-crawl4ai/security/advisories/new](https://github.com/wyattowalsh/mcp-crawl4ai/security/advisories/new)
 2. Include:
    - A detailed description of the vulnerability
    - Steps to reproduce or proof-of-concept
@@ -26,7 +26,7 @@ The Crawl4AI-MCP team takes security vulnerabilities seriously. We appreciate yo
    - Any suggested mitigations (if you have them)
 3. **Do not open public GitHub issues for vulnerabilities.**
 
-For non-security bugs, use the standard [Bug Report template](https://github.com/wyattowalsh/crawl4ai-mcp/issues/new?template=bug_report.yml).
+For non-security bugs, use the standard [Bug Report template](https://github.com/wyattowalsh/mcp-crawl4ai/issues/new?template=bug_report.yml).
 
 ### What to expect
 
@@ -37,7 +37,7 @@ For non-security bugs, use the standard [Bug Report template](https://github.com
 
 ## Security Considerations for Users
 
-When using Crawl4AI-MCP, please consider the following security recommendations:
+When using MCP-Crawl4AI, please consider the following security recommendations:
 
 ### Web Crawling Responsible Use
 
@@ -56,7 +56,7 @@ When using Crawl4AI-MCP, please consider the following security recommendations:
 
 ### Content Security
 
-1. **Sanitization:** Content extracted by Crawl4AI-MCP is not automatically sanitized for XSS or other injection attacks. If displaying this content in web applications, ensure proper sanitization.
+1. **Sanitization:** Content extracted by MCP-Crawl4AI is not automatically sanitized for XSS or other injection attacks. If displaying this content in web applications, ensure proper sanitization.
 2. **Browser Rendering:** When using browser-based crawling with JavaScript execution, be aware that this has a larger attack surface than basic crawling.
 
 ## Vulnerability Disclosure Process
@@ -82,7 +82,7 @@ We only provide security updates for the latest minor version. Please update to 
 
 ## Security Features
 
-Crawl4AI-MCP includes the following security features:
+MCP-Crawl4AI includes the following security features:
 
 - **Content Size Limits:** Prevents memory exhaustion from excessively large web pages
 - **Timeout Controls:** Configurable timeouts for all network operations
@@ -92,7 +92,7 @@ Crawl4AI-MCP includes the following security features:
 
 ## Security Development Lifecycle
 
-The Crawl4AI-MCP project follows these security practices:
+The MCP-Crawl4AI project follows these security practices:
 
 1. **Code Reviews:** All code changes undergo security-focused review
 2. **Dependency Scanning:** Regular monitoring for vulnerabilities in dependencies
@@ -101,4 +101,4 @@ The Crawl4AI-MCP project follows these security practices:
 
 ---
 
-Thank you for helping keep Crawl4AI-MCP and its community safe! 
+Thank you for helping keep MCP-Crawl4AI and its community safe! 

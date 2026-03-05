@@ -1,4 +1,4 @@
-"""Shared fixtures for crawl4ai-mcp tests."""
+"""Shared fixtures for mcp-crawl4ai tests."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from fastmcp import Client
 
-from crawl4ai_mcp.server import mcp
+from mcp_crawl4ai.server import mcp
 
 
 def _make_crawl_result(
@@ -96,6 +96,6 @@ async def client(mock_crawl_result):
     mock_crawler.start = AsyncMock()
     mock_crawler.close = AsyncMock()
 
-    with patch("crawl4ai_mcp.server.AsyncWebCrawler", return_value=mock_crawler):
+    with patch("mcp_crawl4ai.server.AsyncWebCrawler", return_value=mock_crawler):
         async with Client(mcp) as c:
             yield c, mock_crawler

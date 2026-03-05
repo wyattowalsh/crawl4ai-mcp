@@ -15,9 +15,9 @@ body:
         Thanks for reaching out! Use this form for questions, feedback, or issues that don't fit the Bug Report or Feature Request templates.
         
         **Before submitting:**
-        *   ✅ **[Search existing issues](https://github.com/wyattowalsh/crawl4ai-mcp/issues)** to avoid duplicates.
-        *   ✅ **[Check the documentation](https://github.com/wyattowalsh/crawl4ai-mcp/blob/main/README.md)** for potential answers.
-        *   ✅ **[Look through discussions](https://github.com/wyattowalsh/crawl4ai-mcp/discussions)** for related topics.
+        *   ✅ **[Search existing issues](https://github.com/wyattowalsh/mcp-crawl4ai/issues)** to avoid duplicates.
+        *   ✅ **[Check the documentation](https://github.com/wyattowalsh/mcp-crawl4ai/blob/main/README.md)** for potential answers.
+        *   ✅ **[Look through discussions](https://github.com/wyattowalsh/mcp-crawl4ai/discussions)** for related topics.
 
         </div>
         
@@ -72,13 +72,13 @@ body:
       label: 🖥️ Environment Details (if relevant)
       description: |
         If this relates to specific behavior you're observing, please provide environment details.
-        Run commands like `python --version`, `pip show crawl4ai-mcp`, `uname -a` (Linux/macOS) or `systeminfo` (Windows).
+        Run commands like `python --version`, `pip show mcp-crawl4ai`, `uname -a` (Linux/macOS) or `systeminfo` (Windows).
       value: |
         | Component            | Details                                |
         | :------------------- | :------------------------------------- |
         | OS                   | <!-- e.g., macOS 14.5, Ubuntu 22.04 --> |
         | Python Version       | <!-- e.g., 3.14.0 -->                  |
-        | crawl4ai-mcp Version | <!-- e.g., 0.3.0 -->                   |
+        | mcp-crawl4ai Version | <!-- e.g., 0.3.0 -->                   |
         | Installation Method  | <!-- e.g., pip, source, Docker -->      |
         | MCP Transport        | <!-- e.g., STDIO, HTTP -->               |
         | Browser (if used)    | <!-- e.g., Chromium 125 -->           |
@@ -107,22 +107,22 @@ body:
     attributes:
       label: 🔗 Related Issues/Discussions/PRs
       description: Link any related items. (e.g., #123, Discussion #45)
-      placeholder: "#123, https://github.com/wyattowalsh/crawl4ai-mcp/discussions/45"
+      placeholder: "#123, https://github.com/wyattowalsh/mcp-crawl4ai/discussions/45"
   - type: checkboxes
     id: prerequisites
     attributes:
       label: ✅ Prerequisites Check
       description: Please confirm you've checked these common resources.
       options:
-        - label: I have searched existing [issues](https://github.com/wyattowalsh/crawl4ai-mcp/issues) and [discussions](https://github.com/wyattowalsh/crawl4ai-mcp/discussions).
+        - label: I have searched existing [issues](https://github.com/wyattowalsh/mcp-crawl4ai/issues) and [discussions](https://github.com/wyattowalsh/mcp-crawl4ai/discussions).
           required: true
-        - label: I have consulted the project [README](https://github.com/wyattowalsh/crawl4ai-mcp/blob/main/README.md) and relevant documentation.
+        - label: I have consulted the project [README](https://github.com/wyattowalsh/mcp-crawl4ai/blob/main/README.md) and relevant documentation.
           required: true
   - type: checkboxes
     id: terms
     attributes:
       label: 📜 Community Guidelines
-      description: By submitting this issue, you agree to follow our [Contribution Guidelines](https://github.com/wyattowalsh/crawl4ai-mcp/blob/main/.github/CONTRIBUTING.md).
+      description: By submitting this issue, you agree to follow our [Contribution Guidelines](https://github.com/wyattowalsh/mcp-crawl4ai/blob/main/.github/CONTRIBUTING.md).
       options:
         - label: I agree to follow this project's contribution and community guidelines.
           required: true

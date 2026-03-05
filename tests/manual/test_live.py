@@ -10,7 +10,7 @@ import json
 
 from fastmcp import Client
 
-from crawl4ai_mcp.server import mcp
+from mcp_crawl4ai.server import mcp
 
 
 async def main() -> None:

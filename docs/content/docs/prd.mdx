@@ -1,5 +1,5 @@
 ---
-title: Crawl4AI MCP PRD
+title: MCP-Crawl4AI PRD
 description: Product Requirements Document for the Crawl4AI Model Context Protocol (MCP) Server
 ---
 
@@ -8,24 +8,24 @@ import { Callout } from 'fumadocs-ui/components/callout'
 
 ## Executive Summary
 
-**Product Name:** Crawl4AI MCP (Model Context Protocol Server)
+**Product Name:** MCP-Crawl4AI (Model Context Protocol Server)
 **Version:** 1.0
 **Date:** April 26, 2024
 **Authors:** Crawl4AI Team
 
 ### Overview
-Crawl4AI MCP is a server implementation adhering to the Model Context Protocol (MCP) standard, designed specifically to bridge the gap between Large Language Models (LLMs) like Claude and the live web via the Crawl4AI engine. It enables LLMs to securely and reliably request web crawling, data extraction, and content processing actions, receiving structured, LLM-optimized results in return. This enhances AI capabilities by grounding them in real-time web data.
+MCP-Crawl4AI is a server implementation adhering to the Model Context Protocol (MCP) standard, designed specifically to bridge the gap between Large Language Models (LLMs) like Claude and the live web via the Crawl4AI engine. It enables LLMs to securely and reliably request web crawling, data extraction, and content processing actions, receiving structured, LLM-optimized results in return. This enhances AI capabilities by grounding them in real-time web data.
 
 ### Value Proposition
 - **For AI Researchers & Developers**: Reduces time spent on data collection by up to 85% while improving data quality through purpose-built LLM-optimized extraction **(including semantic chunking and structure-aware Markdown)**
 - **For Data Analysts**: Delivers structured web data extraction with 95%+ accuracy using customizable schemas
 - **For Content Creators & AI Users**: Provides seamless, reliable web access for AI assistants, improving factual accuracy by up to 70% compared to static knowledge cutoffs
 
-# Crawl4AI MCP: Product Requirements Document (PRD)
+# MCP-Crawl4AI: Product Requirements Document (PRD)
 
 <div className="flex justify-center items-center mb-8">
   <div className="flex flex-col items-center">
-    <img src="https://via.placeholder.com/200x200.png?text=Crawl4AI+MCP" alt="Crawl4AI MCP Logo" className="mb-2" />
+    <img src="https://via.placeholder.com/200x200.png?text=MCP-Crawl4AI" alt="MCP-Crawl4AI Logo" className="mb-2" />
     <p className="text-center text-sm italic">A powerful Model Context Protocol server implementation for web crawling and data extraction</p>
     <div className="flex gap-2 mt-2">
       <img src="https://img.shields.io/badge/python-3.14+-blue.svg" alt="Python 3.14+" />
@@ -43,7 +43,7 @@ Crawl4AI MCP is a server implementation adhering to the Model Context Protocol (
 
 ## Executive Summary
 
-Crawl4AI MCP is a high-performance server implementation that bridges the Model Context Protocol (MCP) with advanced web crawling capabilities, addressing the critical need for reliable, real-time web data access by Large Language Models (LLMs). This solution enables AI systems to dynamically interact with the live web while maintaining ethical crawling standards and optimizing data extraction for LLM consumption.
+MCP-Crawl4AI is a high-performance server implementation that bridges the Model Context Protocol (MCP) with advanced web crawling capabilities, addressing the critical need for reliable, real-time web data access by Large Language Models (LLMs). This solution enables AI systems to dynamically interact with the live web while maintaining ethical crawling standards and optimizing data extraction for LLM consumption.
 
 ### Product Vision
 Empowering AI systems with verified, current web information to enhance decision-making, reduce hallucinations, and enable intelligent web-aware capabilities at scale.
@@ -67,7 +67,7 @@ Empowering AI systems with verified, current web information to enhance decision
 - Production-ready deployment options (Python package, Docker, Kubernetes)
 
 ### Strategic Alignment
-Crawl4AI MCP addresses the growing market demand for grounding AI capabilities in real-time data, positioning it as essential infrastructure for AI assistants, autonomous agents, and RAG systems requiring current, verified web information.
+MCP-Crawl4AI addresses the growing market demand for grounding AI capabilities in real-time data, positioning it as essential infrastructure for AI assistants, autonomous agents, and RAG systems requiring current, verified web information.
 
 ---
 
@@ -131,10 +131,10 @@ Crawl4AI MCP addresses the growing market demand for grounding AI capabilities i
 ## 1. Introduction {#s-1-introduction}
 
 ### 1.1 Purpose {#s-11-purpose}
-This document outlines the product requirements, features, technical specifications, and overall vision for **Crawl4AI MCP**, a server implementation designed to bridge the powerful web crawling and data extraction capabilities of the Crawl4AI library with the **Model Context Protocol (MCP)** standard. It serves as a central reference for development, testing, and stakeholders.
+This document outlines the product requirements, features, technical specifications, and overall vision for **MCP-Crawl4AI**, a server implementation designed to bridge the powerful web crawling and data extraction capabilities of the Crawl4AI library with the **Model Context Protocol (MCP)** standard. It serves as a central reference for development, testing, and stakeholders.
 
 ### 1.2 Product Overview {#s-12-product-overview}
-Crawl4AI MCP functions as an **intelligent gateway**, enabling Large Language Models (LLMs) such as Claude to interface dynamically with the live web. By adhering to the MCP standard, it empowers AI models to utilize Crawl4AI's comprehensive engine for **retrieving, processing, extracting, and summarizing web content** directly within their operational context. This capability significantly enhances LLMs by grounding their outputs and reasoning in real-time, structured, and contextually relevant web data, thereby overcoming the limitations of static training datasets.
+MCP-Crawl4AI functions as an **intelligent gateway**, enabling Large Language Models (LLMs) such as Claude to interface dynamically with the live web. By adhering to the MCP standard, it empowers AI models to utilize Crawl4AI's comprehensive engine for **retrieving, processing, extracting, and summarizing web content** directly within their operational context. This capability significantly enhances LLMs by grounding their outputs and reasoning in real-time, structured, and contextually relevant web data, thereby overcoming the limitations of static training datasets.
 
 The system leverages Crawl4AI's powerful features, including:
 - **Concurrency-based BFS crawling** with configurable parallelism for efficient site traversal
@@ -154,11 +154,11 @@ The **Model Context Protocol (MCP)**, an open standard initiated by Anthropic, p
 
 Concurrently, **Crawl4AI** has emerged as a premier open-source Python library, meticulously engineered for web crawling and data extraction specifically tailored for AI applications. It offers sophisticated capabilities such as deep crawling, robust handling of dynamic web content (JavaScript rendering), and the generation of **structure-aware, LLM-optimized markdown outputs**.
 
-This project, **Crawl4AI MCP**, strategically integrates these two pivotal technologies. Its objective is to deliver a state-of-the-art MCP server implementation optimized for web interaction. By acting as a vital bridge, it connects advanced LLMs with the vast, continuously evolving information landscape of the World Wide Web, addressing the escalating demand for AI systems capable of operating on, reasoning with, and extracting tangible value from live online data, **while adhering to stringent ethical and performance standards**.
+This project, **MCP-Crawl4AI**, strategically integrates these two pivotal technologies. Its objective is to deliver a state-of-the-art MCP server implementation optimized for web interaction. By acting as a vital bridge, it connects advanced LLMs with the vast, continuously evolving information landscape of the World Wide Web, addressing the escalating demand for AI systems capable of operating on, reasoning with, and extracting tangible value from live online data, **while adhering to stringent ethical and performance standards**.
 
 ### 1.4 Goals and Objectives {#s-14-goals-and-objectives}
 
-The primary goals for Crawl4AI MCP are:
+The primary goals for MCP-Crawl4AI are:
 
 <Accordions>
 <Accordion title="Goal 1: Deliver a Reliable & Compliant MCP Server Implementation (Target: V1.0)">
@@ -180,7 +180,7 @@ The primary goals for Crawl4AI MCP are:
 </Accordion>
 <Accordion title="Goal 4: Facilitate Developer Adoption & Community Engagement (Ongoing, Measured at V1.0)">
 *   *Objective 4.1 (Specific, Time-bound):* Publish comprehensive documentation (Quick Start, API Reference, Configuration Guide, Examples) alongside the V1.0 release.
-*   *Objective 4.2 (Specific, Time-bound):* Provide validated `pip install crawl4ai-mcp` and Docker image deployment methods by the MVP release.
+*   *Objective 4.2 (Specific, Time-bound):* Provide validated `pip install mcp-crawl4ai` and Docker image deployment methods by the MVP release.
 *   *Objective 4.3 (Specific):* Maintain the project under the MIT License on a public repository (e.g., GitHub) with clear contribution guidelines (`CONTRIBUTING.md`).
 *   *Objective 4.4 (Measurable):* Achieve >100 unique installations/downloads and >50 active daily client connections within 3 months post-V1.0 (See [Section 7.1](#s-71-key-performance-indicators-kpis)).
 </Accordion>
@@ -213,7 +213,7 @@ The primary goals for Crawl4AI MCP are:
     - `crawl://images/{image_id}`: Retrieving cached image data (if enabled).
 - **Configuration:** Hierarchical configuration system (Defaults < YAML < Env Vars < CLI args) for server settings, crawler behavior, authentication, **ethical crawling parameters**, etc.
 - **Deployment Options:**
-    - `pip install crawl4ai-mcp` for package installation.
+    - `pip install mcp-crawl4ai` for package installation.
     - Docker container image with `Dockerfile` and example `docker-compose.yml`.
 - **Documentation:** Comprehensive guides (Quick Start, Configuration, Tools API, Deployment, **Ethical Crawling Guide**) and practical examples.
 - **Testing:** Robust test suite (Unit, Integration, E2E) ensuring functionality, reliability, and MCP compliance (>85% coverage target). **Include tests for ethical compliance features.**
@@ -255,7 +255,7 @@ The primary goals for Crawl4AI MCP are:
 - *Pain Point:* Ensuring ethical data collection (**respecting robots.txt, ToS, rate limits**, avoiding excessive load) requires manual effort or complex configuration.
 - *Pain Point:* Difficulty processing and cleaning raw HTML into a **semantically meaningful and token-efficient** format suitable for model ingestion.
 
-**Scenario:** Dr. Lee is researching how LLMs summarize breaking news. She needs to feed her model the latest articles from several news sources daily. Using Crawl4AI MCP, she configures a recurring task via an MCP client to crawl specific news sites, **setting appropriate ethical parameters (User-Agent, respectful rate limits)**. The tool extracts the main article content using `scrape`, processes it into **semantically chunked, structure-aware markdown**, and returns it suitable for her model's input, significantly speeding up her research cycle.
+**Scenario:** Dr. Lee is researching how LLMs summarize breaking news. She needs to feed her model the latest articles from several news sources daily. Using MCP-Crawl4AI, she configures a recurring task via an MCP client to crawl specific news sites, **setting appropriate ethical parameters (User-Agent, respectful rate limits)**. The tool extracts the main article content using `scrape`, processes it into **semantically chunked, structure-aware markdown**, and returns it suitable for her model's input, significantly speeding up her research cycle.
 </Accordion>
 <Accordion title="2.2 AI Application Developers {#s-22-ai-application-developers}">
 **Description:** Software engineers and developers building applications, agents, or services that leverage LLMs. They require their AI components to interact with the live web to provide up-to-date information, perform actions, or complete tasks for end-users.
@@ -284,7 +284,7 @@ The primary goals for Crawl4AI MCP are:
 - *Pain Point:* Handling diverse website structures, anti-bot measures, and dynamic content **while adhering to ethical crawling standards** is challenging and time-consuming.
 - *Pain Point:* Transforming messy web data into clean, structured, **and semantically coherent** formats suitable for LLM processing requires significant effort.
 
-**Scenario:** Sarah is developing an AI agent that helps users find the best deals on specific products. She integrates Crawl4AI MCP into her backend. When a user asks for deals on a "QuantumBook X1", her agent uses the `extract_structured_data` tool via MCP, providing a schema to pull product names, prices, and availability from several e-commerce sites. The MCP server handles the crawling **responsibly (respecting site limits)** and extraction, returning structured JSON data to her agent.
+**Scenario:** Sarah is developing an AI agent that helps users find the best deals on specific products. She integrates MCP-Crawl4AI into her backend. When a user asks for deals on a "QuantumBook X1", her agent uses the `extract_structured_data` tool via MCP, providing a schema to pull product names, prices, and availability from several e-commerce sites. The MCP server handles the crawling **responsibly (respecting site limits)** and extraction, returning structured JSON data to her agent.
 </Accordion>
 <Accordion title="2.3 Data Analysts {#s-23-data-analysts}">
 **Description:** Analysts focused on gathering, processing, and interpreting data to derive business insights, track market trends, or monitor competitors. They may use AI tools to augment their data collection and analysis workflows, requiring access to specific, often structured, web data.
@@ -311,7 +311,7 @@ The primary goals for Crawl4AI MCP are:
 - *Pain Point:* Writing and maintaining custom scrapers for each data source is resource-intensive and brittle.
 - *Pain Point:* Commercial data providers can be expensive or lack coverage for niche websites.
 
-**Scenario:** Mark, a market analyst, needs to track competitor pricing weekly. He uses a tool integrated with Crawl4AI MCP. He defines an extraction schema for competitor product pages and sets up a scheduled task via his MCP client, **ensuring the crawl respects the sites' ToS and rate limits**. Crawl4AI MCP crawls the specified pages weekly using `extract_structured_data`, and the structured JSON output is automatically ingested into his analysis database.
+**Scenario:** Mark, a market analyst, needs to track competitor pricing weekly. He uses a tool integrated with MCP-Crawl4AI. He defines an extraction schema for competitor product pages and sets up a scheduled task via his MCP client, **ensuring the crawl respects the sites' ToS and rate limits**. MCP-Crawl4AI crawls the specified pages weekly using `extract_structured_data`, and the structured JSON output is automatically ingested into his analysis database.
 </Accordion>
 <Accordion title="2.4 Content Creators {#s-24-content-creators}">
 **Description:** Writers, journalists, marketers, or other creators who use AI assistants (like Claude) as part of their workflow for research, drafting, fact-checking, or summarization. They need their AI assistant to have reliable access to current web information.
@@ -336,7 +336,7 @@ The primary goals for Crawl4AI MCP are:
 - *Pain Point:* Copy-pasting from websites into AI prompts is cumbersome.
 - *Pain Point:* AI tools sometimes hallucinate or lack access to the latest web information.
 
-**Scenario:** Alex is a journalist writing an article on renewable energy trends. Using Crawl4AI MCP through his favorite AI assistant, he's able to request a summary of several recent industry reports. The tool crawls the specified URLs **ethically**, extracts the main content using the `scrape` tool, filters out boilerplate, **processes it into clean, semantically chunked content**, and provides it to the AI assistant for summarization.
+**Scenario:** Alex is a journalist writing an article on renewable energy trends. Using MCP-Crawl4AI through his favorite AI assistant, he's able to request a summary of several recent industry reports. The tool crawls the specified URLs **ethically**, extracts the main content using the `scrape` tool, filters out boilerplate, **processes it into clean, semantically chunked content**, and provides it to the AI assistant for summarization.
 </Accordion>
 </Accordions>
 
@@ -874,7 +874,7 @@ The memory-adaptive concurrency system dynamically adjusts crawler parallelism b
 The server can be started with command line arguments:
 
 <pre>
-python -m crawl4ai_mcp.server --log-level INFO --memory-threshold 0.75 --min-concurrency 1 --max-concurrency 8
+python -m mcp_crawl4ai.server --log-level INFO --memory-threshold 0.75 --min-concurrency 1 --max-concurrency 8
 </pre>
 
 This configures the server with INFO logging, 75% memory threshold, and concurrency limits between 1 and 8.
@@ -930,7 +930,7 @@ docker run -p 8000:8000 \
 
 <Accordions>
 <Accordion title="MCP Inspector Integration">
-The Crawl4AI-MCP server is fully compatible with the MCP Inspector, a visual testing and debugging tool for MCP servers.
+The MCP-Crawl4AI server is fully compatible with the MCP Inspector, a visual testing and debugging tool for MCP servers.
 
 **MCP Inspector Features**
 
@@ -940,22 +940,22 @@ The Crawl4AI-MCP server is fully compatible with the MCP Inspector, a visual tes
 - Monitoring server logs and notifications
 - Real-time testing of MCP transport layers
 
-**Using MCP Inspector with Crawl4AI-MCP**
+**Using MCP Inspector with MCP-Crawl4AI**
 
-The MCP Inspector can be run directly against the Crawl4AI-MCP server:
+The MCP Inspector can be run directly against the MCP-Crawl4AI server:
 
 ```bash
-# Run Inspector against a local Crawl4AI-MCP server
-npx @modelcontextprotocol/inspector node -m crawl4ai_mcp.server
+# Run Inspector against a local MCP-Crawl4AI server
+npx @modelcontextprotocol/inspector node -m mcp_crawl4ai.server
 
 # Pass environment variables to configure the server
-npx @modelcontextprotocol/inspector -e LOG_LEVEL=debug -e MAX_CONCURRENT_REQUESTS=5 node -m crawl4ai_mcp.server
+npx @modelcontextprotocol/inspector -e LOG_LEVEL=debug -e MAX_CONCURRENT_REQUESTS=5 node -m mcp_crawl4ai.server
 
 # Use custom ports for Inspector client UI and proxy server
-CLIENT_PORT=8080 SERVER_PORT=9000 npx @modelcontextprotocol/inspector node -m crawl4ai_mcp.server
+CLIENT_PORT=8080 SERVER_PORT=9000 npx @modelcontextprotocol/inspector node -m mcp_crawl4ai.server
 ```
 
-The Inspector runs both a client UI (default port 5173) and an MCP proxy server (default port 3000). Open the client UI in your browser to interact with the Crawl4AI-MCP server through a visual interface.
+The Inspector runs both a client UI (default port 5173) and an MCP proxy server (default port 3000). Open the client UI in your browser to interact with the MCP-Crawl4AI server through a visual interface.
 
 **Advantages for Development**
 
@@ -970,7 +970,7 @@ The Inspector runs both a client UI (default port 5173) and an MCP proxy server 
 ## 6. User Interface Requirements {#s-6-user-interface-requirements}
 
 <Callout title="Note">
-Crawl4AI-MCP is primarily a backend server. Any user interface would likely be provided by the MCP client (e.g., Claude Desktop) or a separate management frontend, which is currently out of scope for the core server development. These requirements are placeholders if a minimal UI becomes necessary or relevant for testing/debugging.
+MCP-Crawl4AI is primarily a backend server. Any user interface would likely be provided by the MCP client (e.g., Claude Desktop) or a separate management frontend, which is currently out of scope for the core server development. These requirements are placeholders if a minimal UI becomes necessary or relevant for testing/debugging.
 </Callout>
 
 ### 6.1 User Interface Design {#s-61-user-interface-design}
@@ -1061,7 +1061,7 @@ Crawl4AI-MCP is primarily a backend server. Any user interface would likely be p
 - **Documentation Usage:** Page views/engagement metrics for documentation site (if applicable). *Target: Evidence of usage and positive feedback.*
 </Accordion>
 <Accordion title="6.1.3 Business & Impact Metrics {#s-613-business--impact-metrics}">
-- **LLM Hallucination Reduction:** Measure the reduction in factual errors when LLMs use Crawl4AI-MCP (with its **semantically processed output**) for web-dependent queries compared to baseline (raw HTML or simpler extraction). *Target: > 65% reduction on benchmark Q&A dataset.*
+- **LLM Hallucination Reduction:** Measure the reduction in factual errors when LLMs use MCP-Crawl4AI (with its **semantically processed output**) for web-dependent queries compared to baseline (raw HTML or simpler extraction). *Target: > 65% reduction on benchmark Q&A dataset.*
 - **Data Collection Time Savings:** Estimated time saved by researchers/developers compared to manual scraping or less optimized tools. *Target: Qualitative feedback indicating significant savings (e.g., > 80%).*
 - **Structured Extraction Accuracy:** Accuracy of data extracted using schemas on benchmark sites. *Target: > 95% accuracy on defined fields.*
 - **Community Contributions:** Number of forks, stars, contributors, and external PRs merged, **including contributions related to new extraction strategies, chunking methods, or ethical presets**. *Target: Growing trend, > 5 external contributors by 6 months post-V1.0.*
@@ -1085,7 +1085,7 @@ Crawl4AI-MCP is primarily a backend server. Any user interface would likely be p
 - **GitHub Metrics:** Track stars, forks, issues, PRs, and contributor counts directly from GitHub.
 </Accordion>
 <Accordion title="6.2.3 Business & Impact Measurement {#s-623-business--impact-measurement}">
-- **Benchmark Q&A Dataset:** Develop a dataset of questions requiring current web information. Evaluate LLM responses with and without Crawl4AI-MCP access (**testing both raw vs. semantically processed output**), scoring for factual accuracy and coherence.
+- **Benchmark Q&A Dataset:** Develop a dataset of questions requiring current web information. Evaluate LLM responses with and without MCP-Crawl4AI access (**testing both raw vs. semantically processed output**), scoring for factual accuracy and coherence.
 - **User Interviews/Case Studies:** Conduct interviews with early adopters to gather qualitative data on time savings and workflow improvements.
 - **Extraction Accuracy Tests:** Run `extract_structured_data` tool against benchmark websites with known ground truth data and calculate field-level accuracy. **Also evaluate the quality/coherence of semantic chunks produced.**
 </Accordion>
@@ -1106,7 +1106,7 @@ Crawl4AI-MCP is primarily a backend server. Any user interface would likely be p
 - **Transport Layers:** Stable STDIO, HTTP/SSE, and WebSocket support.
 - **Core Tools Implemented:** `scrape`, `crawl`, `extract_structured_data`, `get_page_metadata`, `batch_crawl` fully functional as defined in FRs.
 - **Key Features:** Configurable crawling (depth, rate limits, user agent), structured extraction (CSS/XPath), **structure-aware** Markdown/Text output, basic browser rendering (`javascript_enabled`), caching (`enabled`/`disabled` modes), **basic semantic chunking**.
-- **Deployment:** Reliable `pip install crawl4ai-mcp[all]` and documented Docker image deployment.
+- **Deployment:** Reliable `pip install mcp-crawl4ai[all]` and documented Docker image deployment.
 - **Configuration:** Hierarchical configuration system (YAML, Env Vars, CLI) implemented and documented **including basic ethical parameters**.
 - **Documentation:** Comprehensive user documentation (Installation, Quick Start, Configuration, API/Tools Reference, Basic Examples, **Initial Ethical Crawling Notes**).
 - **Testing:** >85% unit and integration test coverage for V1.0 features. Key E2E tests for core workflows pass reliably.
