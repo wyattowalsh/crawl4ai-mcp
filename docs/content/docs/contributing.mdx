@@ -25,7 +25,7 @@ Thank you for your interest in contributing to MCP-Crawl4AI! This guide will hel
 
 ### Setting Up the Development Environment
 
-<Tabs items={['MacOS/Linux', 'Windows', 'Replit']}>
+<Tabs items={['MacOS/Linux', 'Windows']}>
   <Tab value="MacOS/Linux">
     ```bash
     # Clone the repository
@@ -50,18 +50,6 @@ Thank you for your interest in contributing to MCP-Crawl4AI! This guide will hel
 
     # Install browser dependencies for mcp-crawl4ai
     mcp-crawl4ai --setup
-    ```
-  </Tab>
-  <Tab value="Replit">
-    On Replit, the environment is pre-configured with a Python 3.13 virtual environment (`.venv313/`), Nix system dependencies for Playwright/Chromium, and a workflow that starts the server automatically on port 8000.
-
-    ```bash
-    # The server starts automatically via the workflow.
-    # MCP endpoint: https://<your-repl>.replit.dev/mcp
-
-    # To reinstall deps manually:
-    uv pip install fastmcp crawl4ai pydantic-settings -e . --python .venv313/bin/python
-    .venv313/bin/python -m patchright install chromium
     ```
   </Tab>
 </Tabs>

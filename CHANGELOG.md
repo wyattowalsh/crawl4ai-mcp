@@ -11,9 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Replit deployment support with pre-configured workflow, Python 3.13 venv, and Nix system dependencies for Playwright/Chromium.
-- `replit.md` project documentation for Replit environment reference.
-- Replit installation and quick-start sections in README.md and docs site.
+- No changes yet.
 
 ---
 

@@ -104,22 +104,6 @@ mcp-crawl4ai --setup
 
 </details>
 
-<details>
-<summary><strong>Replit</strong></summary>
-
-The project is pre-configured to run on Replit with a Python 3.13 virtual environment, Nix system dependencies for Playwright/Chromium, and a workflow that starts the HTTP transport server on port 8000.
-
-```bash
-# The server starts automatically via the Replit workflow.
-# MCP endpoint: https://<your-repl>.replit.dev/mcp
-
-# To manually rebuild the environment:
-uv pip install fastmcp crawl4ai pydantic-settings -e . --python .venv313/bin/python
-.venv313/bin/python -m patchright install chromium
-```
-
-</details>
-
 > [!NOTE]
 > The server auto-detects missing Playwright browsers on first startup and attempts to install them automatically. You can also run `mcp-crawl4ai --setup` or `crawl4ai-setup` manually at any time.
 
@@ -172,19 +156,6 @@ Add to your Claude Desktop MCP settings (`claude_desktop_config.json`):
 ```bash
 claude mcp add crawl4ai -- mcp-crawl4ai --transport stdio
 ```
-
-</details>
-
-<details>
-<summary><strong>Replit (HTTP)</strong></summary>
-
-On Replit, the server starts automatically via the configured workflow on port 8000. The MCP endpoint is available at:
-
-```
-https://<your-repl>.replit.dev/mcp
-```
-
-Connect any MCP client to this URL to start using the tools.
 
 </details>
 
