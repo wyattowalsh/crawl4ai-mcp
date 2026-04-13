@@ -61,3 +61,11 @@ The server also attempts auto-detection and installation of missing browsers on 
 - Summarize page
 - Extract schema
 - Compare pages
+
+## Audit Reports
+Five exhaustive audit reports produced in the project root:
+- `AUDIT-server-core.md` — 29 findings on server.py internals
+- `AUDIT-test-suite.md` — 24 findings + 13 new tests added
+- `AUDIT-security.md` — 18 findings (2 Critical, 4 High)
+- `AUDIT-docs.md` — 23 findings across all documentation
+- `AUDIT-ci-build.md` — 14 findings on CI/build/packaging
