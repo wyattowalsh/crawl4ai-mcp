@@ -41,6 +41,9 @@ The truncation notice also makes the returned string longer than `max_chars`
 partially done via per-item truncation), and either skip envelope-level
 truncation or return a valid error envelope when the response is too large.
 
+**Confidence:** Validated — code path is deterministic and reproducible by
+sending any request with content exceeding `max_response_chars`.
+
 ### H-02: SSRF TOCTOU via DNS rebinding
 
 **Lines 365–400**
@@ -53,6 +56,10 @@ connection (DNS rebinding). This is a known pattern for SSRF bypass.
 **Mitigate:** Pass resolved addresses to the crawler or validate at connection
 time (requires upstream crawl4ai support), or re-resolve and check just before
 the request.
+
+**Confidence:** Hypothesis — exploitability depends on whether crawl4ai's
+underlying HTTP client caches DNS results. Requires empirical validation with a
+DNS rebinding test server.
 
 ### H-03: Deep crawl discovered URLs bypass SSRF validation
 
@@ -70,6 +77,10 @@ leaking cloud metadata or internal service data.
 add a filter chain that blocks private-network patterns for all deep crawl
 operations.
 
+**Confidence:** Hypothesis — exploitability depends on whether crawl4ai
+internally filters private IPs during link following. Requires verification of
+upstream crawl4ai deep-crawl URL handling behavior.
+
 ### H-04: `socket.getaddrinfo` blocks the async event loop
 
 **Line 386**
@@ -81,6 +92,9 @@ requests.
 
 **Fix:** Use `asyncio.get_event_loop().getaddrinfo()` or make `_validate_url`
 async and await the lookup.
+
+**Confidence:** Validated — `socket.getaddrinfo` is definitively synchronous;
+blocking is observable under concurrent load via event loop stall metrics.
 
 ---
 
