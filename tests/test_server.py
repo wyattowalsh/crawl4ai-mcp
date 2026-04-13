@@ -1010,3 +1010,167 @@ class TestSmoke:
         from mcp_crawl4ai.server import mcp as _mcp
 
         assert _mcp.name == "crawl4ai"
+
+
+# ---------------------------------------------------------------------------
+# Audit gap coverage — CG-H01: Lifespan auto-setup failure paths
+# ---------------------------------------------------------------------------
+
+
+class TestLifespanAutoSetupFailures:
+    async def test_setup_subprocess_failure_raises_runtime_error(self, mock_crawl_result):
+        import subprocess as _subprocess
+
+        mock_crawler = AsyncMock()
+        mock_crawler.start = AsyncMock(
+            side_effect=Exception("playwright chromium browser not found")
+        )
+        mock_crawler.close = AsyncMock()
+
+        with (
+            patch("mcp_crawl4ai.server.AsyncWebCrawler", return_value=mock_crawler),
+            patch(
+                "mcp_crawl4ai.server.subprocess.run",
+                side_effect=_subprocess.CalledProcessError(1, "crawl4ai-setup"),
+            ),
+        ):
+            with pytest.raises(RuntimeError, match="Auto-setup failed"):
+                async with Client(mcp):
+                    pass
+
+    async def test_setup_binary_not_found_raises_runtime_error(self, mock_crawl_result):
+        mock_crawler = AsyncMock()
+        mock_crawler.start = AsyncMock(
+            side_effect=Exception("playwright chromium browser not found")
+        )
+        mock_crawler.close = AsyncMock()
+
+        with (
+            patch("mcp_crawl4ai.server.AsyncWebCrawler", return_value=mock_crawler),
+            patch(
+                "mcp_crawl4ai.server.subprocess.run",
+                side_effect=FileNotFoundError("crawl4ai-setup not found"),
+            ),
+        ):
+            with pytest.raises(RuntimeError, match="Auto-setup failed"):
+                async with Client(mcp):
+                    pass
+
+    async def test_non_browser_error_reraised_directly(self, mock_crawl_result):
+        mock_crawler = AsyncMock()
+        mock_crawler.start = AsyncMock(side_effect=OSError("disk full"))
+        mock_crawler.close = AsyncMock()
+
+        with patch("mcp_crawl4ai.server.AsyncWebCrawler", return_value=mock_crawler):
+            with pytest.raises(OSError, match="disk full"):
+                async with Client(mcp):
+                    pass
+
+
+# ---------------------------------------------------------------------------
+# Audit gap coverage — CG-H02: _truncate on JSON envelope validity
+# ---------------------------------------------------------------------------
+
+
+class TestTruncationJSONValidity:
+    async def test_envelope_truncation_produces_invalid_json(self, client, mock_crawl_result):
+        c, mock_crawler = client
+        long_markdown = MagicMock()
+        long_markdown.fit_markdown = "X" * (MAX_RESPONSE_CHARS + 50_000)
+        long_markdown.raw_markdown = long_markdown.fit_markdown
+        mock_crawl_result.markdown = long_markdown
+        mock_crawler.arun = AsyncMock(return_value=mock_crawl_result)
+
+        result = await c.call_tool("scrape", {"targets": "https://example.com"})
+        text = result.content[0].text if hasattr(result, "content") else str(result)
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(text)
+
+    def test_truncate_notice_exceeds_max_chars(self):
+        content = "A" * (MAX_RESPONSE_CHARS + 1000)
+        truncated = _truncate(content)
+        assert len(truncated) > MAX_RESPONSE_CHARS
+
+    def test_truncate_at_exact_boundary_returns_unmodified(self):
+        content = "B" * MAX_RESPONSE_CHARS
+        assert _truncate(content) == content
+
+    def test_truncate_one_over_boundary_triggers_notice(self):
+        content = "C" * (MAX_RESPONSE_CHARS + 1)
+        truncated = _truncate(content)
+        assert "truncated" in truncated.lower()
+        assert len(truncated) > MAX_RESPONSE_CHARS
+
+
+# ---------------------------------------------------------------------------
+# Audit gap coverage — CG-H03: SSRF edge cases
+# ---------------------------------------------------------------------------
+
+
+class TestSSRFEdgeCases:
+    def test_ipv6_loopback_blocked(self):
+        with pytest.raises(ToolError, match="Private/loopback"):
+            _validate_url("http://[::1]/foo")
+
+    def test_link_local_address_blocked(self):
+        with patch(
+            "mcp_crawl4ai.server.socket.getaddrinfo",
+            return_value=[(2, 1, 6, "", ("169.254.169.254", 80))],
+        ):
+            with pytest.raises(ToolError, match="Private/loopback"):
+                _validate_url("http://metadata.internal/latest")
+
+    def test_dns_resolution_failure_silent_passthrough(self):
+        with patch(
+            "mcp_crawl4ai.server.socket.getaddrinfo",
+            side_effect=OSError("DNS failed"),
+        ):
+            _validate_url("http://unresolvable-host.invalid/path")
+
+    def test_ipv6_private_fc00_blocked(self):
+        with patch(
+            "mcp_crawl4ai.server.socket.getaddrinfo",
+            return_value=[(10, 1, 6, "", ("fc00::1", 80, 0, 0))],
+        ):
+            with pytest.raises(ToolError, match="Private/loopback"):
+                _validate_url("http://example.com/foo")
+
+    def test_mixed_public_private_dns_results_blocked(self):
+        with patch(
+            "mcp_crawl4ai.server.socket.getaddrinfo",
+            return_value=[
+                (2, 1, 6, "", ("93.184.216.34", 80)),
+                (2, 1, 6, "", ("127.0.0.1", 80)),
+            ],
+        ):
+            with pytest.raises(ToolError, match="Private/loopback"):
+                _validate_url("http://example.com/foo")
+
+
+# ---------------------------------------------------------------------------
+# Audit gap coverage — CG-M04: Extraction with empty extracted_content
+# ---------------------------------------------------------------------------
+
+
+class TestExtractionEmptyContent:
+    async def test_scrape_extraction_empty_content_returns_error(self, client, mock_crawl_result):
+        c, mock_crawler = client
+        schema = {
+            "name": "Products",
+            "baseSelector": ".product",
+            "fields": [{"name": "title", "selector": "h2", "type": "text"}],
+        }
+        mock_crawl_result.extracted_content = ""
+        mock_crawler.arun = AsyncMock(return_value=mock_crawl_result)
+
+        result = await c.call_tool(
+            "scrape",
+            {
+                "targets": "https://example.com",
+                "options": {"extraction": {"schema": schema}},
+            },
+        )
+        text = result.content[0].text if hasattr(result, "content") else str(result)
+        data = json.loads(text)
+        assert data["ok"] is False
+        assert "No data extracted" in data["data"]["error"]
