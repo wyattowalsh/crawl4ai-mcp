@@ -172,7 +172,7 @@ class ServerSettings(BaseSettings):
     capabilities: CapabilitiesConfig = Field(default_factory=CapabilitiesConfig)
 
 
-_SETTINGS: ServerSettings | None = None
+_SETTINGS: ServerSettings | None = None  # AUDIT: L-07 — module-global lacks synchronization
 
 
 def _load_settings(*, reload: bool = False) -> ServerSettings:
@@ -192,14 +192,14 @@ def _get_settings(ctx: Context | None = None) -> ServerSettings:
     return _load_settings()
 
 
-def _get_max_response_chars() -> int:
+def _get_max_response_chars() -> int:  # AUDIT: M-07 — ignores lifespan ctx; always uses process-level settings cache
     """Resolve the default response truncation limit."""
     configured = _get_settings().defaults.max_response_chars
     resolved = MAX_RESPONSE_CHARS if configured is None else configured
     return max(1, resolved)
 
 
-def _get_batch_item_chars() -> int:
+def _get_batch_item_chars() -> int:  # AUDIT: M-07 — ignores lifespan ctx; always uses process-level settings cache
     """Resolve the default per-item truncation limit."""
     configured = _get_settings().defaults.batch_item_chars
     resolved = BATCH_ITEM_CHARS if configured is None else configured
@@ -279,7 +279,7 @@ async def crawler_lifespan(server: Any) -> AsyncGenerator[dict[str, Any], None]:
         verbose=False,
     )
     crawler = AsyncWebCrawler(config=browser_config)
-    session_registry: dict[str, dict[str, int | float]] = {}
+    session_registry: dict[str, dict[str, int | float]] = {}  # AUDIT: M-08 — no max session count; unbounded memory growth
     artifact_store: dict[str, Any] = {
         "artifacts": {},
         "runs": {},
@@ -350,7 +350,7 @@ mcp = FastMCP(
 # ---------------------------------------------------------------------------
 
 
-def _truncate(content: str, max_chars: int | None = None) -> str:
+def _truncate(content: str, max_chars: int | None = None) -> str:  # AUDIT: H-01 — truncating serialized JSON envelopes here produces invalid JSON; notice also exceeds max_chars budget
     """Truncate *content* if it exceeds *max_chars*, appending a notice."""
     bounded_max_chars = _get_max_response_chars() if max_chars is None else max_chars
     if len(content) <= bounded_max_chars:
@@ -362,7 +362,7 @@ def _truncate(content: str, max_chars: int | None = None) -> str:
     )
 
 
-def _validate_url(url: str) -> None:
+def _validate_url(url: str) -> None:  # AUDIT: H-02 — SSRF TOCTOU via DNS rebinding; H-04 — socket.getaddrinfo blocks the async event loop
     """Raise ``ToolError`` if *url* is not a valid HTTP(S) URL."""
     parsed = urlparse(url)
     if parsed.scheme not in ("http", "https") or not parsed.netloc:
@@ -384,7 +384,7 @@ def _validate_url(url: str) -> None:
     except ValueError:
         try:
             resolved_addrs = socket.getaddrinfo(hostname, None)
-        except OSError:
+        except OSError:  # AUDIT: M-02 — silent pass-through on DNS resolution failure allows unresolvable hostnames
             return
         for resolved in resolved_addrs:
             sockaddr = resolved[4]
@@ -1362,7 +1362,7 @@ def _is_sensitive_artifact_key(key: str) -> bool:
     )
 
 
-def _sanitize_artifact_value(value: Any, *, field_name: str | None = None) -> Any:
+def _sanitize_artifact_value(value: Any, *, field_name: str | None = None) -> Any:  # AUDIT: M-04 — unbounded recursion; deeply nested payloads can hit recursion limit
     """Recursively sanitize and bound artifact payload values."""
     if isinstance(value, dict):
         sanitized: dict[str, Any] = {}
@@ -1409,7 +1409,7 @@ def _next_artifact_store_id(
     return f"{prefix}-{index:08d}"
 
 
-def _next_opaque_artifact_id(artifact_store: dict[str, Any]) -> str:
+def _next_opaque_artifact_id(artifact_store: dict[str, Any]) -> str:  # AUDIT: M-05 — while True loop has no termination guard
     """Generate a non-enumerable artifact identifier."""
     artifacts = artifact_store.get("artifacts")
     while True:
@@ -1763,7 +1763,7 @@ def _extract_markdown(result: Any) -> str:
     Handles both plain ``str`` and ``MarkdownGenerationResult`` objects,
     preferring ``fit_markdown`` when available.
     """
-    md = result.markdown
+    md = result.markdown  # AUDIT: M-06 — direct attribute access; use getattr for safety against API changes
     if md is None:
         return result.cleaned_html or result.html or ""
     if hasattr(md, "fit_markdown") and md.fit_markdown:
@@ -1779,7 +1779,7 @@ def _extract_markdown(result: Any) -> str:
 _FORMAT_DISPATCH = {
     "html": lambda r: r.html or "",
     "cleaned_html": lambda r: r.cleaned_html or r.html or "",
-    "text": lambda r: re.sub(
+    "text": lambda r: re.sub(  # AUDIT: L-02 — fragile markdown-to-text regex; fails on nested formatting, code blocks, tables
         r"[#*_`]|!?\[([^\]]*)\]\([^)]*\)", r"\1", _extract_markdown(r)
     ).strip(),
 }
@@ -2117,7 +2117,7 @@ async def scrape(
     output_format = conversion_options.output_format or "markdown"
 
     crawler = _get_crawler(ctx)
-    assert ctx is not None
+    assert ctx is not None  # AUDIT: M-01 — bare assert stripped under -O; replace with if/raise ToolError
     await ctx.info(f"Scraping {len(normalized_targets)} target(s)")
     normalized_session_id = await _bind_session_id(
         session_id=session_options.session_id,
@@ -2126,12 +2126,12 @@ async def scrape(
         session_ttl_seconds=session_options.session_ttl_seconds,
         session_max_uses=session_options.session_max_uses,
     )
-    if normalized_capture_artifacts and normalized_session_id is None:
+    if normalized_capture_artifacts and normalized_session_id is None:  # AUDIT: L-06 — duplicate check; already validated in _normalize_canonical_option_groups
         raise ToolError(
             "Invalid options.conversion.capture_artifacts: requires options.session.session_id."
         )
 
-    runtime_controls = _validate_optional_runtime_controls(
+    runtime_controls = _validate_optional_runtime_controls(  # AUDIT: M-09 — redundant double-validation; Pydantic models already enforce ranges
         timeout_ms=runtime_options.timeout_ms,
         max_retries=runtime_options.max_retries,
         retry_backoff_ms=runtime_options.retry_backoff_ms,
@@ -2276,7 +2276,7 @@ async def scrape(
             }
         ),
     }
-    return _truncate(json.dumps(envelope, indent=2))
+    return _truncate(json.dumps(envelope, indent=2))  # AUDIT: H-01 — truncating serialized JSON produces invalid JSON
 
 
 # ---------------------------------------------------------------------------
@@ -2395,7 +2395,7 @@ async def crawl(
     output_format = conversion_options.output_format or "markdown"
 
     crawler = _get_crawler(ctx)
-    assert ctx is not None
+    assert ctx is not None  # AUDIT: M-01 — bare assert stripped under -O; replace with if/raise ToolError
     await ctx.info(f"Crawling {len(normalized_targets)} target(s) in {traversal_mode} mode")
     normalized_session_id = await _bind_session_id(
         session_id=session_options.session_id,
@@ -2404,12 +2404,12 @@ async def crawl(
         session_ttl_seconds=session_options.session_ttl_seconds,
         session_max_uses=session_options.session_max_uses,
     )
-    if normalized_capture_artifacts and normalized_session_id is None:
+    if normalized_capture_artifacts and normalized_session_id is None:  # AUDIT: L-06 — duplicate check; already validated in _normalize_canonical_option_groups
         raise ToolError(
             "Invalid options.conversion.capture_artifacts: requires options.session.session_id."
         )
 
-    runtime_controls = _validate_optional_runtime_controls(
+    runtime_controls = _validate_optional_runtime_controls(  # AUDIT: M-09 — redundant double-validation; Pydantic models already enforce ranges
         timeout_ms=runtime_options.timeout_ms,
         max_retries=runtime_options.max_retries,
         retry_backoff_ms=runtime_options.retry_backoff_ms,
@@ -2487,7 +2487,7 @@ async def crawl(
         if render_options.viewport_height is not None:
             deep_config.viewport_height = render_options.viewport_height
 
-        deep_results: Any = await crawler.arun(
+        deep_results: Any = await crawler.arun(  # AUDIT: H-03 — discovered URLs during deep crawl bypass _validate_url SSRF checks
             url=normalized_targets[0],
             config=deep_config,
             **runtime_controls,  # ty: ignore[invalid-argument-type]
@@ -2574,7 +2574,7 @@ async def crawl(
         "schema_version": SCRAPE_CRAWL_CONTRACT_SCHEMA_VERSION,
         "tool": "crawl",
         "ok": ok,
-        "data": items[0] if len(items) == 1 else None,
+        "data": items[0] if len(items) == 1 else None,  # AUDIT: L-05 — deep crawl single-result returns data instead of items array
         "items": items if len(items) > 1 else None,
         "meta": {
             "target_count": len(normalized_targets),
@@ -2595,7 +2595,7 @@ async def crawl(
             }
         ),
     }
-    return _truncate(json.dumps(envelope, indent=2))
+    return _truncate(json.dumps(envelope, indent=2))  # AUDIT: H-01 — truncating serialized JSON produces invalid JSON
 
 
 # ---------------------------------------------------------------------------
@@ -2603,7 +2603,7 @@ async def crawl(
 # ---------------------------------------------------------------------------
 
 
-async def crawl_url(  # pragma: no cover - retired legacy surface
+async def crawl_url(  # pragma: no cover - retired legacy surface  # AUDIT: L-01 — ~1200 lines of dead legacy tool code (crawl_url through execute_js)
     url: Annotated[str, Field(description="The URL to crawl. Must be http or https.")],
     output_format: Annotated[
         Literal["markdown", "html", "text", "cleaned_html"],
@@ -3075,7 +3075,7 @@ async def crawl_many(  # pragma: no cover - retired legacy surface
             item = {
                 "url": result_url,
                 "success": False,
-                "error": r.error_message,
+                "error": r.error_message,  # AUDIT: L-09 — unguarded access; error_message may be None
             }
 
         if include_diagnostics:
@@ -3096,7 +3096,7 @@ async def crawl_many(  # pragma: no cover - retired legacy surface
     return json.dumps(output, indent=2)
 
 
-def _validate_deep_crawl_url_filter_patterns(
+def _validate_deep_crawl_url_filter_patterns(  # AUDIT: M-03 — no upper bound on pattern list length
     raw_patterns: Any,
     *,
     param_name: str,
@@ -3562,7 +3562,7 @@ async def take_screenshot(  # pragma: no cover - retired legacy surface
     await ctx.info(f"Screenshotting {url}")
 
     # Note: viewport_width/viewport_height are accepted as tool params for
-    # future use but CrawlerRunConfig does not yet support them directly.
+    # future use but CrawlerRunConfig does not yet support them directly.  # AUDIT: L-08 — viewport params accepted but unused
     config = CrawlerRunConfig(
         screenshot=True,
         wait_for=wait_for,  # ty: ignore[invalid-argument-type]
@@ -3836,9 +3836,9 @@ async def close_session(
     session and does not impact other active sessions.
     """
     crawler = _get_crawler(ctx)
-    assert ctx is not None
+    assert ctx is not None  # AUDIT: M-01 — bare assert stripped under -O
     normalized_session_id = _normalize_session_id(session_id)
-    assert normalized_session_id is not None
+    assert normalized_session_id is not None  # AUDIT: M-01 — bare assert stripped under -O
     session_registry = _get_session_registry(ctx)
     artifact_store = _get_artifact_store(ctx)
 
@@ -3908,9 +3908,9 @@ async def get_artifact(
     cleanup before resolving the artifact. By default only metadata is returned;
     set include_content=true to fetch bounded artifact content.
     """
-    assert ctx is not None
+    assert ctx is not None  # AUDIT: M-01 — bare assert stripped under -O
     normalized_session_id = _normalize_session_id(session_id)
-    assert normalized_session_id is not None
+    assert normalized_session_id is not None  # AUDIT: M-01 — bare assert stripped under -O
     normalized_artifact_id = _normalize_artifact_id(artifact_id)
     artifact_store = _get_artifact_store(ctx)
     _enforce_artifact_retention(
@@ -3950,7 +3950,7 @@ _TOOL_NAMES = [
 
 @mcp.resource("config://server", mime_type="application/json")
 def get_server_config() -> str:
-    """Current server configuration and capabilities."""
+    """Current server configuration and capabilities."""  # AUDIT: L-04 — exposes internal settings details (limits, retention, capabilities)
     settings = _load_settings()
     return json.dumps(
         {
@@ -4043,7 +4043,7 @@ def build_extraction_schema(
 
 
 @mcp.prompt
-def compare_pages(
+def compare_pages(  # AUDIT: L-03 — prompt URLs not validated; potential prompt injection vector
     url1: str,
     url2: str,
 ) -> list[Message]:
