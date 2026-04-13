@@ -28,6 +28,8 @@ AI agent instructions for this project.
 | `.github/dependabot.yml` | Dependabot for pip + GitHub Actions |
 | `.github/assets/img/` | Logo, icon, favicon images |
 | `Dockerfile` | Container build for HTTP transport deployment |
+| `.venv313/` | Replit Python 3.13 virtual environment |
+| `replit.md` | Replit project documentation and setup reference |
 | `.pre-commit-config.yaml` | Pre-commit hooks (ruff + pre-commit-hooks) |
 
 ## Commands
@@ -57,6 +59,34 @@ uv run ruff check mcp_crawl4ai/
 # Type check
 uv run ty check mcp_crawl4ai/
 ```
+
+## Replit Deployment
+
+The server runs on Replit with a dedicated Python 3.13 virtual environment at `.venv313/`.
+
+```bash
+# The workflow command (configured automatically):
+LD_LIBRARY_PATH=/nix/store/24w3s75aa2lrvvxsybficn8y3zxd27kp-mesa-libgbm-25.1.0/lib:$LD_LIBRARY_PATH \
+  .venv313/bin/python -m mcp_crawl4ai.server --transport http --host 0.0.0.0 --port 8000
+
+# MCP endpoint (public):
+# https://<your-repl>.replit.dev/mcp
+
+# Install deps into the Replit venv:
+uv pip install fastmcp crawl4ai pydantic-settings --python .venv313/bin/python
+uv pip install -e . --python .venv313/bin/python
+
+# Install Chromium browser:
+.venv313/bin/python -m patchright install chromium
+```
+
+### Replit Environment Notes
+
+- `LD_LIBRARY_PATH` must include the Mesa GBM lib path for Chromium to find `libgbm.so.1`
+- System dependencies (NSS, DBus, Mesa, X11 libs, etc.) are installed via Nix
+- The `.venv313/` directory is the canonical virtual environment (not `.pythonlibs/`)
+- Playwright browsers are stored in `.cache/ms-playwright/`
+- The server binds to `0.0.0.0` on Replit (required for the preview proxy)
 
 ## CI / Pre-commit
 

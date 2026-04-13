@@ -101,6 +101,10 @@ mcp-crawl4ai --setup
 uv run pytest
 ```
 
+### Replit Setup
+
+On Replit, the environment comes pre-configured. The server starts automatically via the workflow using a Python 3.13 virtual environment (`.venv313/`), with Chromium and all system dependencies pre-installed. The MCP endpoint is available at `https://<your-repl>.replit.dev/mcp`.
+
 ## 🧰 Coding Standards
 
 ### Python Guidelines

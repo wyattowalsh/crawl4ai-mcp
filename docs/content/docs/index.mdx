@@ -65,7 +65,7 @@ This server is designed to be:
 
 MCP-Crawl4AI can be installed in multiple ways to fit your needs.
 
-<Tabs items={['pip', 'Modern Python (uv)', 'Docker', 'Development']}>
+<Tabs items={['pip', 'Modern Python (uv)', 'Docker', 'Replit', 'Development']}>
   <Tab>
     ```bash
     # Install package
@@ -99,6 +99,16 @@ MCP-Crawl4AI can be installed in multiple ways to fit your needs.
     # Use environment variables for runtime tuning when needed
     docker run -p 8000:8000 -e MCP_CRAWL4AI_DEFAULTS__MAX_RESPONSE_CHARS=50000 \
       ghcr.io/wyattowalsh/mcp-crawl4ai:latest
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    # The server starts automatically via the Replit workflow.
+    # MCP endpoint: https://<your-repl>.replit.dev/mcp
+
+    # To manually rebuild the environment:
+    uv pip install fastmcp crawl4ai pydantic-settings -e . --python .venv313/bin/python
+    .venv313/bin/python -m patchright install chromium
     ```
   </Tab>
   <Tab>

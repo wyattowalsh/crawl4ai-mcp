@@ -88,7 +88,7 @@ MCP-Crawl4AI offers a comprehensive set of features designed to simplify web cra
 
 ### Transport Options
 
-<Tabs items={['stdio', 'HTTP']}>
+<Tabs items={['stdio', 'HTTP', 'Replit']}>
   <Tab value="stdio">
     **stdio transport** is ideal for direct integration with clients like Claude Desktop. It uses standard input/output streams for communication, making it efficient for co-located processes. This is the default transport.
 
@@ -105,6 +105,10 @@ MCP-Crawl4AI offers a comprehensive set of features designed to simplify web cra
     # Start the server with HTTP transport
     mcp-crawl4ai --transport http --host 127.0.0.1 --port 8000
     ```
+  </Tab>
+
+  <Tab value="Replit">
+    **Replit deployment** runs the HTTP transport automatically via a pre-configured workflow. The server binds to `0.0.0.0:8000` internally and is accessible through the Replit proxy at `https://<your-repl>.replit.dev/mcp`. The environment includes Python 3.13 and Nix-managed system libraries for Chromium. Playwright browsers are installed during initial setup and auto-detected on startup.
   </Tab>
 </Tabs>
 

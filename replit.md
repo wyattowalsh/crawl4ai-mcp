@@ -19,9 +19,9 @@ LD_LIBRARY_PATH=/nix/store/24w3s75aa2lrvvxsybficn8y3zxd27kp-mesa-libgbm-25.1.0/l
 The `LD_LIBRARY_PATH` is required because Chromium (used by Playwright) needs `libgbm.so.1` from Mesa, which is installed via Nix but not on the default library path.
 
 ### Transport
-The server runs in HTTP transport mode on port 8000. The MCP endpoint is:
+The server runs in HTTP transport mode, binding to `0.0.0.0:8000` internally. The public MCP endpoint (through the Replit proxy) is:
 ```
-http://0.0.0.0:8000/mcp
+https://<your-repl>.replit.dev/mcp
 ```
 
 ## Dependencies
@@ -41,10 +41,11 @@ http://0.0.0.0:8000/mcp
 - `pydantic-settings>=2.0`
 
 ## Playwright Browsers
-Chromium is downloaded and stored in `.cache/ms-playwright/`. The browser was installed with:
+Chromium is downloaded and stored in `.cache/ms-playwright/`. If browsers are missing, install them manually:
 ```
 .venv313/bin/python -m patchright install chromium
 ```
+The server also attempts auto-detection and installation of missing browsers on first startup.
 
 ## MCP Tools
 - `scrape` — Single-page web scraping
