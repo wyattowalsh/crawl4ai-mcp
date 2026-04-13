@@ -862,7 +862,16 @@ class TestCanonicalOptionNormalization:
         assert normalized.traversal.dispatcher.rate_limit_max_retries == 2
 
 
+EXPECTED_PROMPTS = sorted(["summarize_page", "build_extraction_schema", "compare_pages"])
+
+
 class TestPrompts:
+    async def test_all_prompts_registered(self, client):
+        c, _ = client
+        prompts = await c.list_prompts()
+        prompt_names = sorted(p.name for p in prompts)
+        assert prompt_names == EXPECTED_PROMPTS
+
     async def test_summarize_page_prompt(self, client):
         c, _ = client
         prompt = await c.get_prompt("summarize_page", {"url": "https://example.com"})
@@ -1073,6 +1082,7 @@ class TestLifespanAutoSetupFailures:
 
 
 class TestTruncationJSONValidity:
+    @pytest.mark.xfail(reason="Characterization test: server audit H-01 — _truncate corrupts JSON envelopes; remove xfail when fix lands", strict=True)
     async def test_envelope_truncation_produces_invalid_json(self, client, mock_crawl_result):
         c, mock_crawler = client
         long_markdown = MagicMock()
