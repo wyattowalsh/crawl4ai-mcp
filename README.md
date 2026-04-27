@@ -23,7 +23,7 @@
 [![FastMCP v3](https://img.shields.io/badge/FastMCP-v3-4B8BBE?style=for-the-badge&logo=python&logoColor=white)](https://github.com/jlowin/fastmcp)
 [![Crawl4AI](https://img.shields.io/badge/Crawl4AI-powered-FF6B35?style=for-the-badge)](https://github.com/unclecode/crawl4ai)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![Documentation](https://img.shields.io/badge/docs-online-brightgreen?style=for-the-badge)](https://wyattowalsh.github.io/mcp-crawl4ai/)
+[![Documentation](https://img.shields.io/badge/docs-online-brightgreen?style=for-the-badge)](https://mcp-crawl4ai.w4w.dev)
 
 [![GitHub stars](https://img.shields.io/github/stars/wyattowalsh/mcp-crawl4ai?style=for-the-badge&logo=github&logoColor=white)](https://github.com/wyattowalsh/mcp-crawl4ai/stargazers)
 [![GitHub last commit](https://img.shields.io/github/last-commit/wyattowalsh/mcp-crawl4ai?style=for-the-badge&logo=github&logoColor=white)](https://github.com/wyattowalsh/mcp-crawl4ai/commits)
@@ -40,7 +40,7 @@
 **Only 2 runtime dependencies** &mdash; `fastmcp` and `crawl4ai`.
 
 > [!TIP]
-> **[Full documentation site &rarr;](https://wyattowalsh.github.io/mcp-crawl4ai/)**
+> **[Full documentation site &rarr;](https://mcp-crawl4ai.w4w.dev)**
 
 ### Key Features
 

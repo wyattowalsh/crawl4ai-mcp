@@ -23,17 +23,17 @@ export const metadata: Metadata = {
   description: 'A powerful Model Context Protocol server implementation for web crawling and data extraction',
   keywords: ['web crawling', 'MCP', 'AI', 'web extraction', 'web data', 'LLM', 'Claude', 'Model Context Protocol'],
   authors: [{ name: 'Crawl4AI Team' }],
-  metadataBase: new URL('https://mcp-crawl4ai.io'),
+  metadataBase: new URL('https://mcp-crawl4ai.w4w.dev'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://mcp-crawl4ai.io',
+    url: 'https://mcp-crawl4ai.w4w.dev',
     title: 'MCP-Crawl4AI | Advanced Web Crawling for AI',
     description: 'A powerful Model Context Protocol server implementation for web crawling and data extraction',
     siteName: 'MCP-Crawl4AI Documentation',
     images: [
       {
-        url: 'https://mcp-crawl4ai.io/og-image.jpg',
+        url: 'https://mcp-crawl4ai.w4w.dev/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'MCP-Crawl4AI Logo',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: 'MCP-Crawl4AI | Advanced Web Crawling for AI',
     description: 'A powerful Model Context Protocol server implementation for web crawling and data extraction',
     creator: '@crawl4ai',
-    images: ['https://mcp-crawl4ai.io/og-image.jpg'],
+    images: ['https://mcp-crawl4ai.w4w.dev/og-image.jpg'],
   },
 };
 

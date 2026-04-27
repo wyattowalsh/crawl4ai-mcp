@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "dev": "next dev --turbo",
+    "build": "next build --webpack",
+    "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx"
   },
@@ -18,7 +18,7 @@
     "fumadocs-ui": "15.2.5",
     "lucide-react": "^0.487.0",
     "mermaid": "^11.6.0",
-    "next": "15.2.4",
+    "next": "16.2.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwind-merge": "^3.2.0"
