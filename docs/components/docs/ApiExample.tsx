@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
 import { CodeBlock } from '../ui/CodeBlock';
